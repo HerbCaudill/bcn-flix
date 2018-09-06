@@ -8,27 +8,33 @@ dotenv.config();
 
 const { URL, GRAPHQL_PORT, GRAPHQL_PATH } = process.env
 
-
-const books = [
-  {
-    title: 'Harry Potter and the Chamber of Secrets',
-    author: 'J.K. Rowling',
-  },
-  {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton',
-  },
-];
-
 const typeDefs = gql`
 
-  type Book {
-    title: String
-    author: String
+  type Movie {
+    id: string
+    title: string
+    id: string
+    title: string
+    localTitle: string
+    poster: string
+    localPoster: string
+    description: string
+    localDescription: string
+    releaseDate: joda.LocalDate
+    language: string
+    productionCountries: [string]
+    spokenLanguages: [string]
+    runtime: joda.Duration
+    genres: [string]
+    trailerLink: string
+    localRating: number
+    metascore: number
+    compositeScore: number
+    showtimes: [Showtime]
   }
 
   type Query {
-    books: [Book]
+    movies: [Movie]
   }
 `;
 
