@@ -24,6 +24,7 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "start-server": "nodemon server.js",
+    "cover": "cls && jest --coverage && start chrome.exe .coverage/lcov-report/index.html",
     "develop": "concurrently \"yarn start\" \"yarn start-server\""
   },
   "devDependencies": {
