@@ -3,6 +3,7 @@
 import * as cheerio from 'cheerio'
 import * as request from 'request-promise-cache'
 import * as Joda from 'js-joda'
+import { Movie, Theater } from '../@types/bcnflix'
 
 const CACHE_DURATION = 60 * 60 * 1000
 
