@@ -32,3 +32,5 @@ declare namespace bcnflix {
     times?: Joda.LocalTime[]
   }
 }
+
+export = bcnflix
