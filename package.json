@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/fs-extra": "^5.0.4",
     "apollo-boost": "^0.1.15",
     "apollo-server": "^2.0.5",
     "apollo-server-express": "^2.0.4",
