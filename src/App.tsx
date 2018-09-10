@@ -5,6 +5,7 @@ import ApolloClient from 'apollo-boost'
 
 const client = new ApolloClient({
   uri: '/graphql',
+  fetch: require('node-fetch')
 })
 
 import './App.css'
