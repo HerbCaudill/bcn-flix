@@ -1,0 +1,85 @@
+{
+  "name": "bcn-flix-server",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "cover": "cls && jest --coverage && start chrome.exe .coverage/lcov-report/index.html",
+    "start": "nodemon",
+    "test": "cls && jest"
+  },
+  "dependencies": {
+    "apollo-server": "^2.0.5",
+    "cheerio": "^1.0.0-rc.2",
+    "dotenv": "4.0.0",
+    "fs-extra": "3.0.1",
+    "graphql": "^14.0.0",
+    "js-joda": "^1.9.1",
+    "persistent-cache": "^1.1.1",
+    "promise": "8.0.1",
+    "promise-throttle": "^1.0.0",
+    "request-promise-cache": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.9",
+    "@types/dotenv": "^4.0.3",
+    "@types/fs-extra": "^5.0.4",
+    "@types/jest": "^23.3.1",
+    "@types/node": "^10.9.4",
+    "babel-jest": "^23.6.0",
+    "jest": "22.4.2",
+    "ts-node": "^7.0.1",
+    "ts-jest": "22.0.1",
+    "tslint": "^5.7.0",
+    "tslint-config-prettier": "^1.10.0",
+    "typescript": "^3.0.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx,ts,tsx}"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": ".\\tsconfig.test.json"
+      }
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node",
+      "mjs"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "<rootDir>/+(src)/**/*.test.ts?(x)"
+    ],
+    "testURL": "http://localhost",
+    "transform": {
+      "^(?!.*\\.(js|jsx|json)$)": "<rootDir>/config/jest/fileTransform.js",
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"
+    ]
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts,tsx",
+    "ignore": [
+      "src/**/*.test.ts"
+    ],
+    "exec": "node -r ts-node/register ./src/index.ts"
+  },
+  "prettier": {
+    "printWidth": 75,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  }
+}

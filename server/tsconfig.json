@@ -3,20 +3,29 @@
     "allowJs": true,
     "baseUrl": ".",
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
-    "lib": ["es6", "dom", "esnext.asynciterable"],
+    "lib": [
+      "es6",
+      "esnext.asynciterable"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": false,
     "noUnusedLocals": true,
-    "outDir": "build/dist",
     "sourceMap": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5"
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "build", "scripts", "webpack", "jest"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "jest"
+  ]
 }

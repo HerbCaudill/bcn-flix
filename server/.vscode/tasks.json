@@ -2,10 +2,12 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Develop",
+            "label": "Start server",
             "type": "shell",
             "command": "yarn",
-            "args": ["develop"],
+            "args": [
+                "start"
+            ],
             "group": "build",
             "problemMatcher": [
                 "$tsc-watch",
@@ -13,8 +15,7 @@
                     "owner": "powershell",
                     "pattern": [
                         {
-                            "regexp":
-                                "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
+                            "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
                             "file": 1,
                             "location": 2,
                             "message": 3
@@ -22,10 +23,10 @@
                     ],
                     "background": {
                         "activeOnStart": true,
-                        "beginsPattern": "Starting the development server",
-                        "endsPattern": "You can now view"
+                        "beginsPattern": "nodemon",
+                        "endsPattern": "GraphQL server ready"
                     }
-                }                
+                }
             ],
             "isBackground": true
         }
