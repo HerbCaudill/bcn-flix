@@ -118,5 +118,11 @@
     "presets": [
       "react-app"
     ]
+  },
+  "prettier": {
+    "printWidth": 75,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
   }
 }
