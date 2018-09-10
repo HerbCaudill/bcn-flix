@@ -1,10 +1,10 @@
 // Scrapes Sensacine for showtimes, one theater at a time
 
 import * as cheerio from 'cheerio'
-import * as request from 'request-promise-cache'
 import * as Joda from 'js-joda'
 import { Movie, Theater } from '../@types/bcnflix'
 
+const request = require('request-promise-cache') // if I use 'import', TS complains that it can't find the types
 const CACHE_DURATION = 60 * 60 * 1000
 
 type MovieAndTimes = {
