@@ -3,11 +3,8 @@
     "allowJs": true,
     "baseUrl": ".",
     "forceConsistentCasingInFileNames": true,
-    "lib": [
-      "es6",
-      "esnext.asynciterable"
-    ],
-    "module": "esnext",
+    "lib": ["es6", "esnext.asynciterable"],
+    "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -18,14 +15,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5"
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "scripts",
-    "jest"
-  ]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "build", "scripts", "jest"]
 }
