@@ -6,7 +6,7 @@
   "scripts": {
     "cover": "cls && jest --coverage && start chrome.exe .coverage/lcov-report/index.html",
     "start": "nodemon -r ts-node/register ./src/index.ts",
-    "test": "cls && jest"
+    "test": "cls && jest --watch"
   },
   "dependencies": {
     "apollo-server": "^2.0.5",
@@ -35,35 +35,21 @@
     "typescript": "^3.0.3"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "**/*.{js,jsx,ts,tsx}"
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src"
     ],
-    "globals": {
-      "ts-jest": {
-        "tsConfigFile": ".\\tsconfig.test.json"
-      }
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
     },
+    "testRegex": "^.+\\.test\\.tsx?$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
       "js",
       "jsx",
       "json",
-      "node",
-      "mjs"
-    ],
-    "testEnvironment": "node",
-    "testMatch": [
-      "<rootDir>/+(src)/**/*.test.ts?(x)"
-    ],
-    "testURL": "http://localhost",
-    "transform": {
-      "^(?!.*\\.(js|jsx|json)$)": "<rootDir>/config/jest/fileTransform.js",
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"
+      "node"
     ]
   },
   "nodemonConfig": {
@@ -73,8 +59,7 @@
     "ext": "ts,tsx",
     "ignore": [
       "src/**/*.test.ts"
-    ],
-    "exec": "node -r ts-node/register ./src/index.ts"
+    ]
   },
   "prettier": {
     "printWidth": 75,
