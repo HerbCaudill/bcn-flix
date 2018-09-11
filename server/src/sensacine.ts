@@ -33,17 +33,33 @@ const theaters: Theater[] = [
   { id: 'E0850', name: 'Zumzeig Cinema' },
   { id: 'E0873', name: 'Cinemes Texas' },
 ]
+
 const baseUrl = 'http://www.sensacine.com/cines/cine'
 
+type response = {
+  err?: Error
+  data?: any
+}
+
+const withErrorHandling = (promise: Promise<any>): Promise<response> =>
+  promise
+    .then((data: any): response => ({ data }))
+    .catch((err: Error): response => ({ err }))
+
 async function getTheaterPage(theater: Theater): Promise<string> {
-  const resp: any = await request({
-    url: `${baseUrl}/${theater.id}`,
-    cacheKey: theater.id,
-    cacheTTL: CACHE_DURATION,
-    limit: 0,
-  })
-  // TODO: Handle errors
-  return resp.body
+  const { err, data }: response = await withErrorHandling(
+    request({
+      url: `${baseUrl}/${theater.id}`,
+      cacheKey: theater.id,
+      cacheTTL: CACHE_DURATION,
+      limit: 0,
+    })
+  )
+  if (err) {
+    console.log(err)
+    return ''
+  }
+  return data
 }
 
 export const scrapeMovie = ($: CheerioStatic): Movie => {
