@@ -1,22 +1,17 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Start server",
-            "runtimeExecutable": "node",
-            "runtimeArgs": [
-                "-r",
-                "ts-node/register"
-            ],
-            "args": [
-                "./src/index.ts"
-            ],
-            "protocol": "inspector",
-            "cwd": "${workspaceRoot}",
-            "console": "integratedTerminal",
-            "sourceMaps": true
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Start server",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "args": ["./src/index.ts"],
+      "protocol": "inspector",
+      "cwd": "${workspaceRoot}",
+      "console": "integratedTerminal",
+      "sourceMaps": true
+    }
+  ]
 }
