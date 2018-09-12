@@ -1,8 +1,8 @@
 module.exports = function(wallaby) {
   return {
-    files: ['assets/**/*', 'src/**/*.ts?(x)', '!src/**/*.test.ts?(x)'],
-    filesWithNoCoverageCalculated: ['src/lib/**.*'],
-    tests: ['src/**/*.test.ts?(x)'],
+    files: ['__tests__/_assets/**/*', 'src/**/*.ts?(x)'],
+    filesWithNoCoverageCalculated: ['**/lib/**.*'],
+    tests: ['__tests__/**/*.test.ts?(x)'],
     compilers: {
       '**/*.ts?(x)': wallaby.compilers.typeScript({
         module: 'commonjs',
