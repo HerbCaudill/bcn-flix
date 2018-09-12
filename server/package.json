@@ -35,6 +35,11 @@
     "typescript": "^3.0.3"
   },
   "jest": {
+    "roots": [
+      "<rootDir>/src",
+      "<rootDir>/__mocks__",
+      "<rootDir>/__tests__"
+    ],
     "testEnvironment": "node",
     "testMatch": [
       "**/?(*.)test.ts?(x)"

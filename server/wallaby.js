@@ -1,6 +1,11 @@
 module.exports = function(wallaby) {
   return {
-    files: ['__tests__/_assets/**/*', 'src/**/*.ts?(x)'],
+    files: [
+      '__mocks__/**/*',
+      '__tests__/_assets/**/*',
+      '__tests__/_utils/**/*',
+      'src/**/*.ts?(x)',
+    ],
     filesWithNoCoverageCalculated: ['**/lib/**.*'],
     tests: ['__tests__/**/*.test.ts?(x)'],
     compilers: {
