@@ -18,7 +18,8 @@
     "persistent-cache": "^1.1.1",
     "promise": "8.0.1",
     "promise-throttle": "^1.0.0",
-    "request-promise-cache": "^2.0.0"
+    "request-promise-cache": "^2.0.0",
+    "themoviedb-javascript-library": "^3.0.3"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.9",
@@ -28,8 +29,8 @@
     "@types/node": "^10.9.4",
     "babel-jest": "^23.6.0",
     "jest": "22.4.2",
-    "ts-node": "^7.0.1",
     "ts-jest": "22.0.1",
+    "ts-node": "^7.0.1",
     "tslint": "^5.7.0",
     "tslint-config-prettier": "^1.10.0",
     "typescript": "^3.0.3"

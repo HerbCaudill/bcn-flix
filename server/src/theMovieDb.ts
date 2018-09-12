@@ -1,10 +1,9 @@
 // Uses The Movie DB's API to look up the details of a movie.
 // https://developers.themoviedb.org/3
 
-import * as theMovieDbApi from '../lib/theMovieDb'
+import theMovieDbApi from 'themoviedb-javascript-library'
 
-import * as dotenv from 'dotenv'
-dotenv.config()
+require('dotenv').config()
 
 import cache from 'persistent-cache'
 var movieCache = cache()

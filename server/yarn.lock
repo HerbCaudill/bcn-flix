@@ -3861,6 +3861,10 @@ test-exclude@^4.2.1:
     read-pkg-up "^1.0.1"
     require-main-filename "^1.0.1"
 
+themoviedb-javascript-library@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/themoviedb-javascript-library/-/themoviedb-javascript-library-3.0.3.tgz#46855f340a29c9fe4fd39e5c40c603ba48651979"
+
 throat@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/throat/-/throat-4.1.0.tgz#89037cbc92c56ab18926e6ba4cbb200e15672a6a"
