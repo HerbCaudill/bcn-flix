@@ -1,12 +1,12 @@
 // Uses The Movie DB's API to look up the details of a movie.
 // https://developers.themoviedb.org/3
 
-import * as theMovieDbApi from './lib/theMovieDb'
+import * as theMovieDbApi from '../lib/theMovieDb'
 
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-const cache = require('persistent-cache')
+import cache from 'persistent-cache'
 var movieCache = cache()
 
 theMovieDbApi.common.api_key = process.env.THE_MOVIE_DB_API_KEY || ''
