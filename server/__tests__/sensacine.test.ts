@@ -2,14 +2,10 @@ jest.mock('request-promise-cache')
 
 import * as Sensacine from '../src/sensacine'
 import * as cheerio from 'cheerio'
-import * as fs from 'fs-extra'
 
-function readModuleFile(path: string) {
-  const filename = require.resolve(path)
-  return fs.readFileSync(filename, 'utf8')
-}
+import { readAsset } from './_utils/assets'
 
-const BALMES = () => readModuleFile('./_assets/sensacine/E0808.html')
+const BALMES = () => readAsset('sensacine/E0808.html')
 
 function CARMEN_Y_LOLA() {
   const $BALMES = cheerio.load(BALMES())

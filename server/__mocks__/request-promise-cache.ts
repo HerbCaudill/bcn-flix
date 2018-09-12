@@ -1,9 +1,6 @@
-const fs = require('fs')
+import { readAsset } from '../__tests__/_utils/assets'
+
 export default async function request({ url }: { url: string }) {
-  const lastSlash = url.lastIndexOf('/')
-  const id = url.substring(lastSlash + 1)
-  const filename = require.resolve(
-    `../__tests__/_assets/sensacine/${id}.html`
-  )
-  return fs.readFileSync(filename, 'utf8')
+  const id = url.substring(url.lastIndexOf('/') + 1)
+  return readAsset(`sensacine/${id}.html`)
 }
