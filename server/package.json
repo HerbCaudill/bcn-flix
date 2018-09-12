@@ -36,13 +36,12 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "roots": [
-      "<rootDir>/src"
+    "testMatch": [
+      "**/?(*.)test.ts?(x)"
     ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "^.+\\.test\\.tsx?$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -56,10 +55,7 @@
     "watch": [
       "src"
     ],
-    "ext": "ts,tsx",
-    "ignore": [
-      "src/**/*.test.ts"
-    ]
+    "ext": "ts,tsx"
   },
   "prettier": {
     "printWidth": 75,
