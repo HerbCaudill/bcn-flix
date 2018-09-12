@@ -1,20 +1,16 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "baseUrl": ".",
-    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["es6", "esnext.asynciterable"],
     "module": "commonjs",
-    "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": false,
-    "noUnusedLocals": true,
     "sourceMap": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5"
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules", "build", "scripts", "jest"]
+  "exclude": ["node_modules"],
+  "include": ["**/*.ts"]
 }
