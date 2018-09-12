@@ -96,3 +96,9 @@ it('scrapes several theaters', async () => {
     'Jurassic World: El reino caído',
   ])
 })
+
+it('handles errors', async () => {
+  const BAD_THEATER = [{ id: 'X6666', name: 'Not a real theater' }]
+  const moviesAndTimes = await Sensacine.getMovies(BAD_THEATER)
+  expect(moviesAndTimes).toEqual([])
+})
