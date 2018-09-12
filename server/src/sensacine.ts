@@ -33,21 +33,22 @@ const baseUrl = 'http://www.sensacine.com/cines/cine'
 
 type response = { err?: Error; data?: any }
 
-export const withErrorHandling = (promise: Promise<any>) =>
+const withErrorHandling = (promise: Promise<any>) =>
   promise
     .then((data: any): response => ({ data }))
     .catch((err: Error): response => ({ err }))
 
 export const scrapeTheater = async (theater: Theater): Promise<string> => {
+  const url = `${baseUrl}/${theater.id}`
   const resp = request({
-    url: `${baseUrl}/${theater.id}`,
+    url,
     cacheKey: theater.id,
     cacheTTL: CACHE_DURATION,
     limit: 0,
   })
   const { err, data } = await withErrorHandling(resp)
   if (err) {
-    console.log(err)
+    // console.log(`Unable to retrieve ${url}`)
     return ''
   }
   return data
@@ -104,11 +105,8 @@ export const parseTimes = ($: CheerioStatic): Joda.LocalTime[] => {
   return times
 }
 
-export const parseMoviesAndTimes = (theaterHtml: string) => {
-  const result: {
-    movie: Movie
-    times: Joda.LocalTime[]
-  }[] = []
+export const parseTheater = (theaterHtml: string) => {
+  const result: { movie: Movie; times: Joda.LocalTime[] }[] = []
   const $ = cheerio.load(theaterHtml)
 
   const $movies = $('div.hred')
@@ -127,10 +125,7 @@ export const parseMoviesAndTimes = (theaterHtml: string) => {
 }
 
 export const scrapeTheaters = async (theaters: Theater[]) => {
-  const result: {
-    theater: Theater
-    page: string
-  }[] = []
+  const result: { theater: Theater; page: string }[] = []
   for (const theater of theaters) {
     const page = await scrapeTheater(theater)
     result.push({ theater, page })
@@ -144,7 +139,7 @@ export const getMovies = async (
   const movieLookup: Map<string, Movie> = new Map()
   const theaterPages = await scrapeTheaters(theaters)
   for (const { page, theater } of theaterPages) {
-    const theaterMovies = parseMoviesAndTimes(page)
+    const theaterMovies = parseTheater(page)
 
     for (const { movie, times } of theaterMovies) {
       const key = movie.localTitle

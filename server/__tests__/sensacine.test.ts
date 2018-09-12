@@ -46,7 +46,7 @@ it('scrapes showtimes', async () => {
 })
 
 it('scrapes a theater', async () => {
-  const moviesAndTimes = Sensacine.parseMoviesAndTimes(BALMES())
+  const moviesAndTimes = Sensacine.parseTheater(BALMES())
   expect(moviesAndTimes.map(d => d.movie.localTitle)).toEqual([
     'Carmen y Lola',
     'Un océano entre nosotros (The Mercy)',
