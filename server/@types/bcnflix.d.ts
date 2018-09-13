@@ -32,6 +32,10 @@ declare namespace bcnflix {
     theater?: Theater
     times?: Joda.LocalTime[]
   }
+
+  type Metascores = {
+    [title: string]: number
+  }
 }
 
 export = bcnflix
