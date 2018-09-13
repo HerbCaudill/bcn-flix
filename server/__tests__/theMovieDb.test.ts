@@ -9,7 +9,7 @@ it('looks up a movie', async () => {
 
   const t = (key: string, value: any) =>
     expect(movie).toEqual(expect.objectContaining({ [key]: value }))
-    
+
   t('description', expect.stringContaining('A disgraced basketball coach'))
   t('genres', [{ id: 18, name: 'Drama' }, { id: 35, name: 'Comedy' }])
   t('id', 456929)
@@ -22,4 +22,9 @@ it('looks up a movie', async () => {
   t('spokenLanguages', [{ iso_639_1: 'es', name: 'Español' }])
   t('title', 'Champions')
   t('tmdbRating', 7.8)
+})
+
+it('handles a movie not found on tmdb', async () => {
+  const movie = await tmdbLookup('Un océano entre nosotros (The Mercy)')
+  expect(movie).toEqual(undefined)
 })
