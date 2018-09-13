@@ -1,0 +1,71 @@
+{
+  "adult": false,
+  "backdrop_path": "/8s231Ufkl9jF2JVnoZtQUxPXsSl.jpg",
+  "belongs_to_collection": null,
+  "budget": 0,
+  "genres": [
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    }
+  ],
+  "homepage": null,
+  "id": 456929,
+  "imdb_id": "tt6793580",
+  "original_language": "es",
+  "original_title": "Campeones",
+  "overview": "A disgraced basketball coach is given the chance to coach Los Amigos, a team of players who are intellectually disabled, and soon realizes they just might have what it takes to make it to the national championships.",
+  "popularity": 16.978,
+  "poster_path": "/m5z4Ud6Ya5EY3Eg3OBbVBaDKWK.jpg",
+  "production_companies": [
+    {
+      "id": 16569,
+      "logo_path": null,
+      "name": "Películas Pendelton",
+      "origin_country": "ES"
+    },
+    {
+      "id": 10031,
+      "logo_path": "/cUOviFxM9l3dYuNeg89giHUaqkd.png",
+      "name": "Morena Films",
+      "origin_country": "ES"
+    },
+    {
+      "id": 67412,
+      "logo_path": "/vgVqq5hunVs8GN5Je9d9rG7Q2NU.png",
+      "name": "Movistar+",
+      "origin_country": "ES"
+    },
+    {
+      "id": 35442,
+      "logo_path": "/wmWzOkzn1blRKh6XOpNA9Z5oVTY.png",
+      "name": "RTVE",
+      "origin_country": "ES"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "ES",
+      "name": "Spain"
+    }
+  ],
+  "release_date": "2018-04-06",
+  "revenue": 0,
+  "runtime": 124,
+  "spoken_languages": [
+    {
+      "iso_639_1": "es",
+      "name": "Español"
+    }
+  ],
+  "status": "Released",
+  "tagline": "When winning isn't everything",
+  "title": "Champions",
+  "video": false,
+  "vote_average": 7.8,
+  "vote_count": 60
+}

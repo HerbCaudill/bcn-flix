@@ -1,0 +1,23 @@
+{
+  "page": 1,
+  "total_results": 1,
+  "total_pages": 1,
+  "results": [
+    {
+      "vote_count": 477,
+      "id": 345887,
+      "video": false,
+      "vote_average": 6.3,
+      "title": "The Equalizer 2",
+      "popularity": 35.717,
+      "poster_path": "/cQvc9N6JiMVKqol3wcYrGshsIdZ.jpg",
+      "original_language": "en",
+      "original_title": "The Equalizer 2",
+      "genre_ids": [53, 28, 80],
+      "backdrop_path": "/z6KLDE72SxE1A8JcJTmmnWArOvR.jpg",
+      "adult": false,
+      "overview": "Robert McCall returns to deliver his special brand of vigilante justice -- but how far will he go when it's someone he loves?",
+      "release_date": "2018-07-19"
+    }
+  ]
+}

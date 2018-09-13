@@ -1,0 +1,23 @@
+{
+  "page": 1,
+  "total_results": 1,
+  "total_pages": 1,
+  "results": [
+    {
+      "vote_count": 6,
+      "id": 519597,
+      "video": false,
+      "vote_average": 7.8,
+      "title": "El mejor verano de mi vida",
+      "popularity": 3.181,
+      "poster_path": "/3s6Z9XKBE1a8rJUkziLTnLtUA6y.jpg",
+      "original_language": "es",
+      "original_title": "El mejor verano de mi vida",
+      "genre_ids": [35],
+      "backdrop_path": null,
+      "adult": false,
+      "overview": "A father in financial problems takes his son on vacation as he tries to solve his life.",
+      "release_date": "2018-07-06"
+    }
+  ]
+}

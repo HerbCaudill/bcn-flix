@@ -1,0 +1,39 @@
+{
+  "page": 1,
+  "total_results": 2,
+  "total_pages": 1,
+  "results": [
+    {
+      "vote_count": 119,
+      "id": 399248,
+      "video": false,
+      "vote_average": 6.2,
+      "title": "Beirut",
+      "popularity": 10.716,
+      "poster_path": "/s2qIeFsI9TskZr1LkSwljQDh5nl.jpg",
+      "original_language": "en",
+      "original_title": "Beirut",
+      "genre_ids": [28, 53],
+      "backdrop_path": "/2nLOJ8gtattGzYzwlYM8PrcgknH.jpg",
+      "adult": false,
+      "overview": "A former U. S. diplomat returns to service in order to save a former colleague in Beirut.",
+      "release_date": "2018-04-11"
+    },
+    {
+      "vote_count": 0,
+      "id": 265000,
+      "video": false,
+      "vote_average": 0,
+      "title": "Hostage",
+      "popularity": 0.001,
+      "poster_path": "/nawwmKyuzr09PVkf2Gwha4DiIKR.jpg",
+      "original_language": "en",
+      "original_title": "Hostage",
+      "genre_ids": [18, 28],
+      "backdrop_path": null,
+      "adult": false,
+      "overview": "The leader of a South African Nation is imprisoned. His followers, led by Zabo, hijack a plane with the intent to use the passengers as hostages to trade for his release. They select a plane carrying a religious leader to use as their main hostage. They soon learn that they have an added bonus of the daughter and grandson of Colonel Shaw, a bigwig in the country. The grandson all the while has to cope with the dual problems of being hijacked and held hostage while needing a kidney transplant. The hijackers have everything in their favor, except that the colonel's daughter is the sweetheart of Major Sam Striker. Striker puts together a band of mercenaries and sets about freeing the hostages.",
+      "release_date": "1987-10-01"
+    }
+  ]
+}

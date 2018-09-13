@@ -1,0 +1,49 @@
+{
+  "adult": false,
+  "backdrop_path": "/bWo0AgCk2jmorzukllOElsOEh9p.jpg",
+  "belongs_to_collection": null,
+  "budget": 0,
+  "genres": [
+    {
+      "id": 10749,
+      "name": "Romance"
+    }
+  ],
+  "homepage": null,
+  "id": 519091,
+  "imdb_id": "tt7485508",
+  "original_language": "es",
+  "original_title": "Carmen y Lola",
+  "overview": "The love story of two gypsy girls.",
+  "popularity": 6.827,
+  "poster_path": "/vTs6ku9RtmbF9O2EwOqNjdwZXYB.jpg",
+  "production_companies": [
+    {
+      "id": 75527,
+      "logo_path": null,
+      "name": "Tvtec Servicios Audiovisuales",
+      "origin_country": ""
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "ES",
+      "name": "Spain"
+    }
+  ],
+  "release_date": "2018-09-07",
+  "revenue": 0,
+  "runtime": 105,
+  "spoken_languages": [
+    {
+      "iso_639_1": "es",
+      "name": "Español"
+    }
+  ],
+  "status": "Released",
+  "tagline": "",
+  "title": "Carmen and Lola",
+  "video": false,
+  "vote_average": 8,
+  "vote_count": 3
+}

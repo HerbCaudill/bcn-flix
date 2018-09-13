@@ -1,0 +1,50 @@
+{
+  "adult": false,
+  "backdrop_path": "/ro5WQZrjuDZpoZ0FaYjNVtFDpzu.jpg",
+  "belongs_to_collection": null,
+  "budget": 0,
+  "genres": [
+    {
+      "id": 18,
+      "name": "Drama"
+    }
+  ],
+  "homepage": null,
+  "id": 469651,
+  "imdb_id": "tt7213936",
+  "original_language": "no",
+  "original_title": "Hva vil folk si",
+  "overview": "Sixteen year-old Nisha lives a double life. At home with her family she is the perfect Pakistani daughter, but when out with her friends, she is a normal Norwegian teenager. When her father catches her in bed with her boyfriend, Nisha's two worlds brutally collide. To set an example, Nisha's parents decide to kidnap her and place her with relatives in Pakistan. Here, in a country she has never been to before, Nisha is forced to adapt to her parents' culture.",
+  "popularity": 4.779,
+  "poster_path": "/3aUuot6sJCQqk1bK4UYPs8omMId.jpg",
+  "production_companies": [],
+  "production_countries": [
+    {
+      "iso_3166_1": "NO",
+      "name": "Norway"
+    }
+  ],
+  "release_date": "2017-10-06",
+  "revenue": 0,
+  "runtime": 106,
+  "spoken_languages": [
+    {
+      "iso_639_1": "en",
+      "name": "English"
+    },
+    {
+      "iso_639_1": "no",
+      "name": "Norsk"
+    },
+    {
+      "iso_639_1": "ur",
+      "name": "اردو"
+    }
+  ],
+  "status": "Released",
+  "tagline": "",
+  "title": "What Will People Say",
+  "video": false,
+  "vote_average": 8.4,
+  "vote_count": 17
+}

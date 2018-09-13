@@ -1,0 +1,23 @@
+{
+  "page": 1,
+  "total_results": 1,
+  "total_pages": 1,
+  "results": [
+    {
+      "vote_count": 3182,
+      "id": 351286,
+      "video": false,
+      "vote_average": 6.5,
+      "title": "Jurassic World: Fallen Kingdom",
+      "popularity": 187.365,
+      "poster_path": "/c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg",
+      "original_language": "en",
+      "original_title": "Jurassic World: Fallen Kingdom",
+      "genre_ids": [28, 12, 878],
+      "backdrop_path": "/3s9O5af2xWKWR5JzP2iJZpZeQQg.jpg",
+      "adult": false,
+      "overview": "Three years after the demise of Jurassic World, a volcanic eruption threatens the remaining dinosaurs on the isla Nublar, so Claire Dearing, the former park manager, recruits Owen Grady to help prevent the extinction of the dinosaurs once again.",
+      "release_date": "2018-06-06"
+    }
+  ]
+}

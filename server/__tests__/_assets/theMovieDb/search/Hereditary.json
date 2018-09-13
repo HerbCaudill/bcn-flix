@@ -1,0 +1,71 @@
+{
+  "page": 1,
+  "total_results": 4,
+  "total_pages": 1,
+  "results": [
+    {
+      "vote_count": 874,
+      "id": 493922,
+      "video": false,
+      "vote_average": 6.9,
+      "title": "Hereditary",
+      "popularity": 63.602,
+      "poster_path": "/dscvG9AWLOzxedHcXN7QguJRhsP.jpg",
+      "original_language": "en",
+      "original_title": "Hereditary",
+      "genre_ids": [27, 18, 9648, 53],
+      "backdrop_path": "/pS9Aub8MPyQbENblGD8mHeaqMuv.jpg",
+      "adult": false,
+      "overview": "When Ellen, the matriarch of the Graham family, passes away, her daughter's family begins to unravel cryptic and increasingly terrifying secrets about their ancestry. The more they discover, the more they find themselves trying to outrun the sinister fate they seem to have inherited.",
+      "release_date": "2018-06-04"
+    },
+    {
+      "vote_count": 0,
+      "id": 539440,
+      "video": false,
+      "vote_average": 0,
+      "title": "Cursed: The True Nature of Hereditary",
+      "popularity": 0.015,
+      "poster_path": null,
+      "original_language": "en",
+      "original_title": "Cursed: The True Nature of Hereditary",
+      "genre_ids": [],
+      "backdrop_path": null,
+      "adult": false,
+      "overview": "Documentary on Hereditary",
+      "release_date": ""
+    },
+    {
+      "vote_count": 1,
+      "id": 364966,
+      "video": false,
+      "vote_average": 8,
+      "title": "Pink & Blue",
+      "popularity": 0.085,
+      "poster_path": "/h4206UCmIjsWTzmcZlashtx2hli.jpg",
+      "original_language": "en",
+      "original_title": "Pink & Blue",
+      "genre_ids": [99],
+      "backdrop_path": null,
+      "adult": false,
+      "overview": "A profound look into the BRCA world examining what it is and how this mutation puts both women and men at a higher risk of developing numerous cancers.",
+      "release_date": "2015-10-23"
+    },
+    {
+      "vote_count": 0,
+      "id": 251809,
+      "video": false,
+      "vote_average": 0,
+      "title": "Erbkrank",
+      "popularity": 0.001,
+      "poster_path": "/3nQVFZkubvD5azOxk7OOcGyODdL.jpg",
+      "original_language": "en",
+      "original_title": "Erbkrank",
+      "genre_ids": [99],
+      "backdrop_path": null,
+      "adult": false,
+      "overview": "This Nazi propaganda film attempts to justify and extols the \"benefits\" of euthanasia.",
+      "release_date": "1936-01-21"
+    }
+  ]
+}

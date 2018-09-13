@@ -1,0 +1,65 @@
+{
+  "adult": false,
+  "backdrop_path": "/2nLOJ8gtattGzYzwlYM8PrcgknH.jpg",
+  "belongs_to_collection": null,
+  "budget": 0,
+  "genres": [
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 53,
+      "name": "Thriller"
+    }
+  ],
+  "homepage": "http://beirutmovie.com/",
+  "id": 399248,
+  "imdb_id": "tt4669264",
+  "original_language": "en",
+  "original_title": "Beirut",
+  "overview": "A former U. S. diplomat returns to service in order to save a former colleague in Beirut.",
+  "popularity": 10.716,
+  "poster_path": "/s2qIeFsI9TskZr1LkSwljQDh5nl.jpg",
+  "production_companies": [
+    {
+      "id": 350,
+      "logo_path": "/l4cEc8UZ3ZrPLisIOh1iYMKwAVP.png",
+      "name": "Radar Pictures",
+      "origin_country": "US"
+    },
+    {
+      "id": 33603,
+      "logo_path": null,
+      "name": "ShivHans Pictures",
+      "origin_country": ""
+    },
+    {
+      "id": 33,
+      "logo_path": "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png",
+      "name": "Universal Pictures",
+      "origin_country": "US"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "release_date": "2018-04-11",
+  "revenue": 201901,
+  "runtime": 110,
+  "spoken_languages": [
+    {
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ],
+  "status": "Released",
+  "tagline": "Beirut, 1982: The Paris of the Middle East Was Burning",
+  "title": "Beirut",
+  "video": false,
+  "vote_average": 6.2,
+  "vote_count": 119
+}

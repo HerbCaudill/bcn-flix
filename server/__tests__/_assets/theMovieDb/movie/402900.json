@@ -1,0 +1,90 @@
+{
+  "adult": false,
+  "backdrop_path": "/scQf03Fm3jeyv4FH04qvi4fp4wh.jpg",
+  "belongs_to_collection": {
+    "id": 304,
+    "name": "Ocean's Collection",
+    "poster_path": "/1c1r5LViqx9LtqQmNkbu5XdcVEP.jpg",
+    "backdrop_path": "/z2TbwtEzjMxYZ8TXfbJmhbahkom.jpg"
+  },
+  "budget": 70000000,
+  "genres": [
+    {
+      "id": 80,
+      "name": "Crime"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    },
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 53,
+      "name": "Thriller"
+    }
+  ],
+  "homepage": "http://www.oceans8movie.com",
+  "id": 402900,
+  "imdb_id": "tt5164214",
+  "original_language": "en",
+  "original_title": "Ocean's Eight",
+  "overview": "Debbie Ocean, a criminal mastermind, gathers a crew of female thieves to pull off the heist of the century at New York's annual Met Gala.",
+  "popularity": 98.434,
+  "poster_path": "/MvYpKlpFukTivnlBhizGbkAe3v.jpg",
+  "production_companies": [
+    {
+      "id": 79,
+      "logo_path": "/tpFpsqbleCzEE2p5EgvUq6ozfCA.png",
+      "name": "Village Roadshow Pictures",
+      "origin_country": "US"
+    },
+    {
+      "id": 174,
+      "logo_path": "/ky0xOc5OrhzkZ1N6KyUxacfQsCk.png",
+      "name": "Warner Bros. Pictures",
+      "origin_country": "US"
+    },
+    {
+      "id": 1163,
+      "logo_path": null,
+      "name": "Larger Than Life Productions",
+      "origin_country": "US"
+    },
+    {
+      "id": 104907,
+      "logo_path": null,
+      "name": "Rahway Road Productions",
+      "origin_country": "US"
+    },
+    {
+      "id": 1782,
+      "logo_path": "/d1mlUfuG0NoQ4x0C7bK80wLGWA1.png",
+      "name": "Smoke House Pictures",
+      "origin_country": "US"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "release_date": "2018-06-07",
+  "revenue": 283980167,
+  "runtime": 111,
+  "spoken_languages": [
+    {
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ],
+  "status": "Released",
+  "tagline": "Every con has its pros",
+  "title": "Ocean's Eight",
+  "video": false,
+  "vote_average": 6.9,
+  "vote_count": 1540
+}
