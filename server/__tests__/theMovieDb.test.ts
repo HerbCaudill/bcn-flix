@@ -2,10 +2,10 @@ import * as Joda from 'js-joda'
 
 jest.mock('theMovieDb-javascript-library')
 
-import lookupMovie from '../src/theMovieDb'
+import tmdbLookup from '../src/theMovieDb'
 
 it('looks up a movie', async () => {
-  const movie = await lookupMovie('Campeones')
+  const movie = await tmdbLookup('Campeones')
 
   const t = (key: string, value: any) =>
     expect(movie).toEqual(expect.objectContaining({ [key]: value }))
