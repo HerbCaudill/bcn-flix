@@ -1,11 +1,11 @@
 jest.mock('request-promise-cache')
 
-import * as Sensacine from '../src/sensacine'
+import * as sensacine from '../src/sensacine'
 import * as cheerio from 'cheerio'
 
-import { readAsset } from './_utils/assets'
+import { read } from './_utils/assets'
 
-const BALMES = () => readAsset('sensacine/E0808.html')
+const BALMES = () => read.sensacine('E0808')
 
 function CARMEN_Y_LOLA() {
   const $BALMES = cheerio.load(BALMES())
@@ -22,9 +22,11 @@ const TEST_THEATERS = [
   { id: 'E0808', name: 'Balmes Multicines' },
 ]
 
+/////////////////////////////////////////////////////
+
 it('scrapes a movie', () => {
   const $movie = CARMEN_Y_LOLA()
-  const movie = Sensacine.parseMovie($movie)
+  const movie = sensacine.parseMovie($movie)
   expect(movie).toEqual({
     localTitle: 'Carmen y Lola',
     localDescription: expect.stringContaining('Carmen y Lola son'),
@@ -36,7 +38,7 @@ it('scrapes a movie', () => {
 
 it('scrapes showtimes', async () => {
   const $movie = CARMEN_Y_LOLA()
-  const showtimes = Sensacine.parseTimes($movie)
+  const showtimes = sensacine.parseTimes($movie)
   expect(showtimes.map(d => d.toString())).toEqual([
     '16:00',
     '18:05',
@@ -46,7 +48,7 @@ it('scrapes showtimes', async () => {
 })
 
 it('scrapes a theater', async () => {
-  const moviesAndTimes = Sensacine.parseTheater(BALMES())
+  const moviesAndTimes = sensacine.parseTheater(BALMES())
   expect(moviesAndTimes.map(d => d.movie.localTitle)).toEqual([
     'Carmen y Lola',
     'Un océano entre nosotros (The Mercy)',
@@ -70,7 +72,7 @@ it('scrapes a theater', async () => {
 })
 
 it('scrapes several theaters', async () => {
-  const moviesAndTimes = await Sensacine.getMovies(TEST_THEATERS)
+  const moviesAndTimes = await sensacine.getMovies(TEST_THEATERS)
   expect(moviesAndTimes.map(d => d.localTitle)).toEqual([
     'Cuando los ángeles duermen',
     'Yucatán',
@@ -99,6 +101,6 @@ it('scrapes several theaters', async () => {
 
 it('handles errors', async () => {
   const BAD_THEATER = [{ id: 'X6666', name: 'Not a real theater' }]
-  const moviesAndTimes = await Sensacine.getMovies(BAD_THEATER)
+  const moviesAndTimes = await sensacine.getMovies(BAD_THEATER)
   expect(moviesAndTimes).toEqual([])
 })
