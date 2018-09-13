@@ -3,9 +3,7 @@
 import * as cheerio from 'cheerio'
 import * as Joda from 'js-joda'
 import { Movie, Theater } from '../@types/bcnflix'
-
-import request from 'request-promise-cache'
-const CACHE_DURATION = 60 * 60 * 1000
+import scrape from './scrape'
 
 const ALL_THEATERS: Theater[] = [
   { id: 'E0091', name: 'Aribau Multicines' },
@@ -29,31 +27,52 @@ const ALL_THEATERS: Theater[] = [
   { id: 'E0873', name: 'Cinemes Texas' },
 ]
 
-const baseUrl = 'http://www.sensacine.com/cines/cine'
+// Returns an array of Movie objects with VOSE showtimes for all theaters listed above
+const getLocalMovies = async (
+  theaters = ALL_THEATERS
+): Promise<Movie[]> => {
+  // We only want one entry for each movie; we use the local title as a key for now
+  const movieLookup: Map<string, Movie> = new Map()
 
-type response = { err?: Error; data?: any }
+  const theaterPages = await scrapeTheaters(theaters)
+  for (const { page, theater } of theaterPages) {
+    const theaterMovies = parseTheater(page)
 
-const withErrorHandling = (promise: Promise<any>) =>
-  promise
-    .then((data: any): response => ({ data }))
-    .catch((err: Error): response => ({ err }))
+    for (const { movie, times } of theaterMovies) {
+      const key = movie.localTitle
 
-export const scrapeTheater = async (theater: Theater): Promise<string> => {
-  const url = `${baseUrl}/${theater.id}`
-  const resp = request({
-    url,
-    cacheKey: theater.id,
-    cacheTTL: CACHE_DURATION,
-    limit: 0,
-  })
-  const { err, data } = await withErrorHandling(resp)
-  if (err) {
-    // console.log(`Unable to retrieve ${url}`)
-    return ''
+      // Create a new movie entry by merging an empty object, any existing movie entry, and the current one
+      const newMovieEntry = Object.assign(
+        { showtimes: [] },
+        movieLookup.get(key),
+        movie
+      )
+      // Add our showtimes (specific to this theater)
+      newMovieEntry.showtimes.push({
+        theater,
+        times: times,
+      })
+
+      movieLookup.set(key, newMovieEntry)
+    }
   }
-  return data
+
+  return Array.from(movieLookup.values())
 }
 
+// Returns an array of HTML pages scraped from sensacine
+const scrapeTheaters = async (theaters: Theater[]) => {
+  const result: { theater: Theater; page: string }[] = []
+
+  for (const theater of theaters) {
+    const url = `http://www.sensacine.com/cines/cine/${theater.id}`
+    const page = await scrape(url)
+    result.push({ theater, page })
+  }
+  return result
+}
+
+// Takes the HTML for one movie listing, returns the title + some metadata
 export const parseMovie = ($: CheerioStatic): Movie => {
   const movie: Movie = {
     localTitle: $('span.meta-title a')
@@ -77,7 +96,8 @@ export const parseMovie = ($: CheerioStatic): Movie => {
   return movie
 }
 
-export const parseTimes = ($: CheerioStatic): Joda.LocalTime[] => {
+// Takes the HTML for one movie listing, returns an array of showtimes
+const parseTimes = ($: CheerioStatic): Joda.LocalTime[] => {
   function isSpanishSpeakingCountry(country: string): boolean {
     const SPANISH_SPEAKING = ['Espa&#xF1;a', 'España']
     return SPANISH_SPEAKING.indexOf(country) !== -1
@@ -94,7 +114,7 @@ export const parseTimes = ($: CheerioStatic): Joda.LocalTime[] => {
     : 'Versión Original'
   const $times = $('div.js-showtimes-pane')
     .eq(TODAY)
-    .find(`div.showtimes-format:contains("${format}")`)
+    .find(`div.showtimes-format:contains("${format}")`) // filter out non-VOSE showtimes
     .find('span.hours-item-value')
 
   $times.each((i: number, t: CheerioElement) => {
@@ -105,7 +125,8 @@ export const parseTimes = ($: CheerioStatic): Joda.LocalTime[] => {
   return times
 }
 
-export const parseTheater = (theaterHtml: string) => {
+// Takes the HTML for one theater, returns an array of movies + showtimes
+const parseTheater = (theaterHtml: string) => {
   const result: { movie: Movie; times: Joda.LocalTime[] }[] = []
   const $ = cheerio.load(theaterHtml)
 
@@ -121,40 +142,9 @@ export const parseTheater = (theaterHtml: string) => {
       }
     }
   })
+
   return result
 }
 
-export const scrapeTheaters = async (theaters: Theater[]) => {
-  const result: { theater: Theater; page: string }[] = []
-  for (const theater of theaters) {
-    const page = await scrapeTheater(theater)
-    result.push({ theater, page })
-  }
-  return result
-}
-
-export const getMovies = async (
-  theaters = ALL_THEATERS
-): Promise<Movie[]> => {
-  const movieLookup: Map<string, Movie> = new Map()
-  const theaterPages = await scrapeTheaters(theaters)
-  for (const { page, theater } of theaterPages) {
-    const theaterMovies = parseTheater(page)
-
-    for (const { movie, times } of theaterMovies) {
-      const key = movie.localTitle
-      const newMovieEntry = Object.assign(
-        { showtimes: [] },
-        movieLookup.get(key),
-        movie
-      )
-      const newShowtimesEntry = {
-        theater,
-        times: times,
-      }
-      newMovieEntry.showtimes.push(newShowtimesEntry)
-      movieLookup.set(key, newMovieEntry)
-    }
-  }
-  return Array.from(movieLookup.values())
-}
+export default getLocalMovies
+export { scrapeTheaters, parseTheater, parseTimes } // for testing
