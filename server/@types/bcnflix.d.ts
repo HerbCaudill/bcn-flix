@@ -17,6 +17,7 @@ declare namespace bcnflix {
     genres?: string[]
     trailerLink?: string
     localRating?: number
+    tmdbRating?: number
     metascore?: number
     compositeScore?: number
     showtimes?: Showtimes[]
