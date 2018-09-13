@@ -2,66 +2,81 @@
 // https://developers.themoviedb.org/3
 
 import theMovieDbApi from 'themoviedb-javascript-library'
+import { Movie } from '../@types/bcnflix'
+import * as Joda from 'js-joda'
 
 require('dotenv').config()
 
-import cache from 'persistent-cache'
-var movieCache = cache()
+var movieCache = require('persistent-cache')()
 
 theMovieDbApi.common.api_key = process.env.THE_MOVIE_DB_API_KEY || ''
 
 const PromiseThrottle = require('promise-throttle')
-
 const throttle = new PromiseThrottle({
   requestsPerSecond: 3,
   promiseImplementation: Promise,
 })
 
-const lookupMovie = (title: string) => {
-  const cachedMovie = movieCache.getSync(title)
-  if (cachedMovie) {
-    console.log(`got from file cache: ${title}`)
-    return Promise.resolve(cachedMovie)
-  }
-  return throttle
-    .add(
-      theMovieDbApi.search.getMovie.bind(this, {
-        query: encodeURIComponent(title),
-      })
-    )
-    .then((r: any) => {
-      const page = JSON.parse(r.body)
+const search = (query: string): Promise<any> =>
+  new Promise((resolve, reject) =>
+    theMovieDbApi.search.getMovie({ query }, resolve, reject)
+  )
 
-      if (page.status_code)
-        // rate limiting message - throw so we can try again
-        throw `${title} search: ${page.status_message}`
-      else if (page.total_results == 0) {
-        // no results, return empty object
-        return {}
-      } else {
-        const bestResult = page.results[0]
-        const id = bestResult.id
+const getById = (id: string): Promise<any> =>
+  new Promise((resolve, reject) =>
+    theMovieDbApi.movies.getById({ id }, resolve, reject)
+  )
 
-        return throttle
-          .add(theMovieDbApi.movies.getById.bind(this, { id }))
-          .then((r: any) => {
-            const movie = JSON.parse(r.body)
-
-            if (movie.status_code)
-              // rate limiting message - throw so we can try again
-              throw `${title} ${id} lookup: ${movie.status_message}`
-
-            movieCache.put(title, movie, () => {})
-            return movie
-          })
-          .catch((err: Error) => {
-            throw err
-          })
-      }
-    })
+const lookupMovie = async (title: string): Promise<Movie | undefined> => {
+  // NEXT: mock this
+  // const cachedMovie = movieCache.getSync(title)
+  // if (cachedMovie) {
+  //   console.log(`got from file cache: ${title}`)
+  //   return Promise.resolve(cachedMovie)
+  // }
+  const searchResults: any = await throttle
+    .add(search.bind(this, title))
     .catch((err: Error) => {
       throw err
     })
+  if (searchResults.status_code)
+    // rate limiting message - throw so we can try again
+    throw `${title} search: ${searchResults.status_message}`
+  else if (searchResults.total_results == 0) {
+    // no results
+    return undefined
+  }
+  const bestResult = searchResults.results[0]
+  const id = bestResult.id
+
+  const m: any = await throttle
+    .add(getById.bind(this, id))
+    .catch((err: Error) => {
+      throw err
+    })
+
+  if (m.status_code)
+    // rate limiting message - throw so we can try again
+    throw `${title} ${id} getById: ${m.status_message}`
+
+  // movieCache.put(title, movieFromApi, () => {})
+  const movie: Movie = {
+    id: m.id,
+    localTitle: m.original_title || title,
+    title: m.title || m.original_title || title,
+    poster: m.poster_path
+      ? `https://image.tmdb.org/t/p/w1280${m.poster_path}`
+      : undefined,
+    description: m.overview,
+    releaseDate: Joda.LocalDate.parse(m.release_date),
+    language: m.original_language,
+    productionCountries: m.production_countries,
+    spokenLanguages: m.spoken_languages,
+    runtime: Joda.Duration.ofMinutes(m.runtime),
+    genres: m.genres,
+    tmdbRating: m.vote_average,
+  }
+  return movie
 }
 
-module.exports = lookupMovie
+export default lookupMovie

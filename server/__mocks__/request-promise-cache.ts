@@ -1,6 +1,8 @@
-import { readAsset } from '../__tests__/_utils/assets'
+import { read } from '../__tests__/_utils/assets'
 
 export default async function request({ url }: { url: string }) {
-  const id = url.substring(url.lastIndexOf('/') + 1)
-  return readAsset(`sensacine/${id}.html`)
+  if (url.includes('sensacine')) {
+    const id = url.substring(url.lastIndexOf('/') + 1)
+    return read.sensacine(id)
+  } else return ''
 }
