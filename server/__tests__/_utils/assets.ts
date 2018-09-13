@@ -19,13 +19,13 @@ export const read = {
     return read.asset(`sensacine/${id}.html`)
   },
 
-  theMovieDb: {
+  tmdb: {
     search(query: string): any {
       const safeQuery = sanitize(query)
-      return JSON.parse(read.asset(`theMovieDb/search/${safeQuery}.json`))
+      return JSON.parse(read.asset(`tmdb/search/${safeQuery}.json`))
     },
     findById(id: string): any {
-      return JSON.parse(read.asset(`theMovieDb/movie/${id}.json`))
+      return JSON.parse(read.asset(`tmdb/movie/${id}.json`))
     },
   },
 }

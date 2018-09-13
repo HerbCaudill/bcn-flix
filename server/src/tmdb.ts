@@ -1,17 +1,17 @@
 // Uses The Movie DB's API to look up the details of a movie.
 // https://developers.themoviedb.org/3
 
-import theMovieDbApi from 'themoviedb-javascript-library'
+import tmdbApi from 'themoviedb-javascript-library'
 import { Movie } from '../@types/bcnflix'
 import * as Joda from 'js-joda'
+import PromiseThrottle from 'promise-throttle'
 
 require('dotenv').config()
 
-theMovieDbApi.common.api_key = process.env.THE_MOVIE_DB_API_KEY || ''
+tmdbApi.common.api_key = process.env.THE_MOVIE_DB_API_KEY || ''
 
 // tmdb gets tetchy about repeated requests,
 // so we use promise-throttle to slow down and retry if rejected
-const PromiseThrottle = require('promise-throttle')
 const throttle = new PromiseThrottle({
   requestsPerSecond: 3,
   promiseImplementation: Promise,
@@ -20,13 +20,13 @@ const throttle = new PromiseThrottle({
 // Promisify tmdb title search
 const search = (query: string): Promise<any> =>
   new Promise((resolve, reject) =>
-    theMovieDbApi.search.getMovie({ query }, resolve, reject)
+    tmdbApi.search.getMovie({ query }, resolve, reject)
   )
 
 // Promisify tmdb id lookup
 const getById = (id: string): Promise<any> =>
   new Promise((resolve, reject) =>
-    theMovieDbApi.movies.getById({ id }, resolve, reject)
+    tmdbApi.movies.getById({ id }, resolve, reject)
   )
 
 // Looks up a movie on tmdb by title (in any language)

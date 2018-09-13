@@ -2,7 +2,7 @@ import * as Joda from 'js-joda'
 
 jest.mock('theMovieDb-javascript-library')
 
-import tmdbLookup from '../src/theMovieDb'
+import tmdbLookup from '../src/tmdb'
 
 it('looks up a movie', async () => {
   const movie = await tmdbLookup('Campeones')

@@ -10,7 +10,7 @@ export default {
       success: (result: any) => void,
       failure: (result: any) => void
     ) {
-      const result = read.theMovieDb.search(query)
+      const result = read.tmdb.search(query)
       success(result)
     },
   },
@@ -20,7 +20,7 @@ export default {
       success: (result: any) => void,
       failure: (result: any) => void
     ) {
-      const result = read.theMovieDb.findById(id)
+      const result = read.tmdb.findById(id)
       success(result)
     },
   },
