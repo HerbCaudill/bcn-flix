@@ -5,7 +5,7 @@
       "type": "node",
       "request": "launch",
       "name": "Start server",
-      "runtimeExecutable": "node",
+      "runtimeExecutable": "nodemon",
       "runtimeArgs": ["-r", "ts-node/register"],
       "args": ["./src/index.ts"],
       "protocol": "inspector",
