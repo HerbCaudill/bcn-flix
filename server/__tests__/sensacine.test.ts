@@ -1,5 +1,3 @@
-jest.mock('request-promise-cache')
-
 import getLocalMovies from '../src/sensacine'
 import * as sensacine from '../src/sensacine'
 import * as cheerio from 'cheerio'

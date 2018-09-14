@@ -3,9 +3,7 @@ import { LocalDate, LocalTime } from 'graphql-joda-types'
 
 import getMovies from './movies'
 
-// require('dotenv').config()
-
-global['XMLHttpRequest'] = require('xhr2')
+require('dotenv').config()
 
 const typeDefs = gql`
   scalar LocalDate

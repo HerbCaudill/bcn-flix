@@ -11,8 +11,10 @@ export const readModuleFile = (modulePath: string) => {
 }
 
 export const read = {
-  asset(path: string): string {
-    return readModuleFile(`../_assets/${path}`)
+  asset(path: string): any {
+    var result = readModuleFile(`../_assets/${path}`)
+    if (path.endsWith('json')) result = JSON.parse(result)
+    return result
   },
 
   sensacine(id: string): string {

@@ -1,5 +1,3 @@
-jest.mock('request-promise-cache')
-
 import getMetascores from '../src/metacritic'
 
 it('gets metascores', async () => {
