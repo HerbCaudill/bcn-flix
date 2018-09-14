@@ -9,8 +9,9 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es5"
+    "target": "es5",
+    "baseUrl": ".",
+    "paths": { "*": ["./@types/*"] }
   },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts"]
+  "exclude": ["node_modules"]
 }
