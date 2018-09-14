@@ -10,18 +10,20 @@ const throttle = new PromiseThrottle({
 })
 
 const scrape = async (url: string): Promise<string> => {
-  const pageRequest = (url: string) =>
-    request({
+  const pageRequest = (url: string) => {
+    return request({
       url,
       headers: { 'User-Agent': IMA_BROWSER },
       cacheKey: url,
       cacheTTL: 60 * 60 * 1000,
       limit: 0,
     })
+  }
 
   const html = await throttle
     .add(pageRequest.bind(this, url))
     .catch((err: Error) => {
+      console.log(`Error loading ${url}:`, err.message)
       return ''
     })
   return html
