@@ -11,10 +11,11 @@ const throttle = new PromiseThrottle({
 })
 
 const scrape = async (url: string): Promise<string> => {
-  const pageRequest = (url: string) => {
-    return fetch(url, {
+  const pageRequest = async (url: string) => {
+    const response = await fetch(url, {
       headers: { 'User-Agent': IMA_BROWSER },
     })
+    return response.text()
   }
 
   const html = await throttle

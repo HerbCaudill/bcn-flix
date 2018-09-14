@@ -26,6 +26,9 @@ const parseMetascores = (html: string): Metascores => {
 // Gets all ratings for movies in theaters from Metacritic
 const getMetascores = async (): Promise<Metascores> => {
   const emptyMetascores: Metascores = {}
+
+  // We'll iterate through the URLs given, sequentially merging each
+  // new dictionary of metascores with the previous one
   const metascoreReducer = async (
     metascores: Promise<Metascores>,
     url: string
@@ -34,6 +37,7 @@ const getMetascores = async (): Promise<Metascores> => {
     const previousMetascores = await metascores
     return Object.assign(previousMetascores, parseMetascores(html))
   }
+
   return urls.reduce(metascoreReducer, Promise.resolve(emptyMetascores))
 }
 
