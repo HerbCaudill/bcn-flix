@@ -1,36 +1,59 @@
-const path = require('path')
-const { ApolloServer, gql } = require('apollo-server')
-const PORT = 4000
+import { ApolloServer, gql } from 'apollo-server'
+import { LocalDate, LocalTime } from 'graphql-joda-types'
 
-const dotenv = require('dotenv')
-dotenv.config()
+import getMovies from './movies'
 
-const books = [
-  {
-    title: 'Harry Potter and the Chamber of Secrets',
-    author: 'J.K. Rowling',
-  },
-  {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton',
-  },
-]
+// require('dotenv').config()
+
+global['XMLHttpRequest'] = require('xhr2')
 
 const typeDefs = gql`
-  type Book {
+  scalar LocalDate
+  scalar LocalTime
+
+  type Theater {
+    id: String
+    name: String
+  }
+
+  type Showtimes {
+    theater: Theater
+    times: [LocalTime]
+  }
+
+  type Movie {
     title: String
-    author: String
+    localTitle: String
+    poster: String
+    localPoster: String
+    description: String
+    localDescription: String
+    releaseDate: LocalDate
+    language: String
+    productionCountries: [String]
+    spokenLanguages: [String]
+    runtime: Int
+    genres: [String]
+    trailerLink: String
+    localRating: Float
+    tmdbRating: Float
+    metascore: Int
+    compositeScore: Float
+    showtimes: [Showtimes]
   }
 
   type Query {
-    books: [Book]
+    movies: [Movie]
   }
 `
 
 const resolvers = {
+  LocalDate,
+  LocalTime,
   Query: {
-    books: () => {
-      return books
+    movies: async () => {
+      const movies = await getMovies()
+      return movies
     },
   },
 }
