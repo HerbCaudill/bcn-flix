@@ -22,10 +22,10 @@ export const read = {
   tmdb: {
     search(query: string): any {
       const safeQuery = sanitize(query)
-      return JSON.parse(read.asset(`tmdb/search/${safeQuery}.json`))
+      return read.asset(`tmdb/search/${safeQuery}.json`)
     },
     findById(id: string): any {
-      return JSON.parse(read.asset(`tmdb/movie/${id}.json`))
+      return read.asset(`tmdb/movie/${id}.json`)
     },
   },
 }

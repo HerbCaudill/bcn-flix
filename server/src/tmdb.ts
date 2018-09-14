@@ -1,10 +1,10 @@
 // Uses The Movie DB's API to look up the details of a movie.
 // https://developers.themoviedb.org/3
 
-import tmdbApi from 'themoviedb-javascript-library'
+import tmdbApi = require('themoviedb-javascript-library')
 import { Movie } from '../@types/bcnflix'
 import * as Joda from 'js-joda'
-import PromiseThrottle from 'promise-throttle'
+import PromiseThrottle = require('promise-throttle')
 
 require('dotenv').config()
 
@@ -17,30 +17,27 @@ const throttle = new PromiseThrottle({
   promiseImplementation: Promise,
 })
 
-// Promisify tmdb title search
 const search = (query: string): Promise<any> =>
-  new Promise((resolve, reject) =>
-    tmdbApi.search.getMovie({ query }, resolve, reject)
-  )
 
-// Promisify tmdb id lookup
 const getById = (id: string): Promise<any> =>
-  new Promise((resolve, reject) =>
-    tmdbApi.movies.getById({ id }, resolve, reject)
-  )
+  
 
 // Looks up a movie on tmdb by title (in any language)
 const tmdbLookup = async (title: string): Promise<Movie | undefined> => {
   // Search using local title to find tmdb id
-  const searchResults: any = await throttle
+  const searchResults_response: string = await throttle
     .add(search.bind(this, title))
     .catch((err: Error) => {
       throw err
     })
+  const searchResults = JSON.parse(searchResults_response)
 
-  if (searchResults.status_code)
+  if (searchResults.status_code) {
     // rate limiting message - throw so we can try again
-    throw `${title} search: ${searchResults.status_message}`
+    const message = `${title} search: ${searchResults.status_message}`
+    console.log(message)
+    throw message
+  }
 
   if (searchResults.total_results == 0)
     // no results
@@ -51,15 +48,19 @@ const tmdbLookup = async (title: string): Promise<Movie | undefined> => {
   const id = bestResult.id
 
   // Look up the details of the movie using that id
-  const _movie: any = await throttle
+  const movie_response: any = await throttle
     .add(getById.bind(this, id))
     .catch((err: Error) => {
       throw err
     })
+  const _movie = JSON.parse(movie_response)
 
-  if (_movie.status_code)
+  if (_movie.status_code) {
     // rate limiting message - throw so we can try again
-    throw `${title} ${id} getById: ${_movie.status_message}`
+    const message = `${title} ${id} getById: ${_movie.status_message}`
+    console.log(message)
+    throw message
+  }
 
   return {
     id: _movie.id,
@@ -73,8 +74,10 @@ const tmdbLookup = async (title: string): Promise<Movie | undefined> => {
     language: _movie.original_language,
     productionCountries: _movie.production_countries,
     spokenLanguages: _movie.spoken_languages,
-    runtime: Joda.Duration.ofMinutes(_movie.runtime),
-    genres: _movie.genres,
+    runtime: _movie.runtime,
+    genres: _movie.genres
+      ? _movie.genres.map((d: any) => d.name)
+      : undefined,
     tmdbRating: _movie.vote_average,
   }
 }
