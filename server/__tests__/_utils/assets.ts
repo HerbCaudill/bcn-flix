@@ -1,9 +1,6 @@
 import * as fs from 'fs-extra'
 import * as path from 'path'
-
-// Sanitize windows filename
-const sanitize = (s: string): string =>
-  s.replace('^\\.+', '').replace('[\\\\/:*?"<>|]', '')
+import { sanitize } from '../../src/sanitize'
 
 export const readModuleFile = (modulePath: string) => {
   const filename = path.join(__dirname, modulePath)
