@@ -13,7 +13,7 @@ declare namespace bcnflix {
     language?: string
     productionCountries?: string[]
     spokenLanguages?: string[]
-    runtime?: Joda.Duration
+    runtime?: number
     genres?: string[]
     trailerLink?: string
     localRating?: number
