@@ -12,6 +12,7 @@ const mockText = (result: any): any => ({
 export default async function fetch(urlString: string) {
   const url = new URL(urlString)
   const path = url.pathname.split('/')
+
   switch (url.host) {
     // sensacine
     case 'www.sensacine.com':
