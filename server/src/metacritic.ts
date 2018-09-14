@@ -4,7 +4,7 @@ import scrape from './scrape'
 
 const urls = [
   'http://www.metacritic.com/browse/movies/release-date/theaters/metascore',
-  'https://www.metacritic.com/browse/dvds/release-date/new-releases/metascore',
+  'http://www.metacritic.com/browse/dvds/release-date/new-releases/metascore',
 ]
 
 const parseMetascores = (html: string): Metascores => {
