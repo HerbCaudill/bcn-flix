@@ -1662,6 +1662,12 @@ graphql-extensions@0.1.3:
   dependencies:
     apollo-server-env "2.0.3"
 
+graphql-joda-types@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/graphql-joda-types/-/graphql-joda-types-1.0.0.tgz#33005f1797ae1b8aa969a9ba3acdbaece252acfd"
+  dependencies:
+    js-joda "^1.8.2"
+
 graphql-subscriptions@^0.5.8:
   version "0.5.8"
   resolved "https://registry.yarnpkg.com/graphql-subscriptions/-/graphql-subscriptions-0.5.8.tgz#13a6143c546bce390404657dc73ca501def30aa7"
@@ -2423,7 +2429,7 @@ jest@22.4.2:
     import-local "^1.0.0"
     jest-cli "^22.4.2"
 
-js-joda@^1.9.1:
+js-joda@^1.8.2, js-joda@^1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/js-joda/-/js-joda-1.9.1.tgz#61fa34de8450f9cc5b84d7b45b986dccbe2d6c4f"
 
@@ -4176,6 +4182,10 @@ ws@^5.2.0:
   resolved "https://registry.yarnpkg.com/ws/-/ws-5.2.2.tgz#dffef14866b8e8dc9133582514d1befaf96e980f"
   dependencies:
     async-limiter "~1.0.0"
+
+xhr2@*:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/xhr2/-/xhr2-0.1.4.tgz#7f87658847716db5026323812f818cadab387a5f"
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
