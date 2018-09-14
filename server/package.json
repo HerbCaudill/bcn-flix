@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "cover": "cls && jest --coverage && start chrome.exe .coverage/lcov-report/index.html",
-    "start": "nodemon -r ts-node/register ./src/index.ts",
+    "start": "node -r ts-node/register ./src/index.ts",
     "test": "cls && jest --watch"
   },
   "dependencies": {
