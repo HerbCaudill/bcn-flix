@@ -5,10 +5,24 @@ import { Movie } from '../@types/bcnflix'
 import * as Joda from 'js-joda'
 import fetch from 'node-fetch'
 import { URL } from 'url'
-
-const PromiseThrottle = require('promise-throttle')
+import { sanitize } from './sanitize'
+import * as path from 'path'
 
 require('dotenv').config()
+
+const persistentCache = require('persistent-cache')
+const cache = persistentCache({
+  duration: 1000 * 60 * 60 * 24 * 30, // 1 month
+  base: path.join(__dirname, '../.cache'),
+  name: 'tmdb',
+})
+
+// tmdb starts rejecting requests if more than 40/10 secs
+const PromiseThrottle = require('promise-throttle')
+const throttle = new PromiseThrottle({
+  requestsPerSecond: 3,
+  promiseImplementation: Promise,
+})
 
 const api_key = process.env.THE_MOVIE_DB_API_KEY || ''
 const baseUrl = 'https://api.themoviedb.org/3'
@@ -30,12 +44,11 @@ const getById = async (id: string): Promise<any> => {
 
 // Looks up a movie on tmdb by title (in any language)
 const tmdbLookup = async (title: string): Promise<Movie | undefined> => {
-  // tmdb gets tetchy about repeated requests,
-  // so we use promise-throttle to slow down and retry if rejected
-  const throttle = new PromiseThrottle({
-    requestsPerSecond: 3,
-    promiseImplementation: Promise,
-  })
+  const cachedMovie: Movie = cache.getSync(sanitize(title))
+  if (cachedMovie) {
+    console.log(`got movie from file cache: ${title}`)
+    return cachedMovie
+  }
 
   // Search using local title to find tmdb id
   const searchResults_response: string = await throttle
@@ -74,7 +87,7 @@ const tmdbLookup = async (title: string): Promise<Movie | undefined> => {
     throw message
   }
 
-  return {
+  const movie = {
     id: _movie.id,
     localTitle: _movie.original_title || title,
     title: _movie.title || _movie.original_title || title,
@@ -92,6 +105,9 @@ const tmdbLookup = async (title: string): Promise<Movie | undefined> => {
       : undefined,
     tmdbRating: _movie.vote_average,
   }
+  console.log(`got from tmdb: ${title}`)
+  cache.put(sanitize(title), movie, () => {})
+  return movie
 }
 
 export default tmdbLookup
