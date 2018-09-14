@@ -1,60 +1,12 @@
-import { ApolloServer, gql } from 'apollo-server'
-import { LocalDate, LocalTime } from 'graphql-joda-types'
-
+import { ApolloServer } from 'apollo-server'
+import resolvers from './resolvers'
+import typeDefs from './typeDefs'
 import getMovies from './movies'
+import * as path from 'path'
 
 require('dotenv').config()
 
-const typeDefs = gql`
-  scalar LocalDate
-  scalar LocalTime
-
-  type Theater {
-    id: String
-    name: String
-  }
-
-  type Showtimes {
-    theater: Theater
-    times: [LocalTime]
-  }
-
-  type Movie {
-    title: String
-    localTitle: String
-    poster: String
-    localPoster: String
-    description: String
-    localDescription: String
-    releaseDate: LocalDate
-    language: String
-    productionCountries: [String]
-    spokenLanguages: [String]
-    runtime: Int
-    genres: [String]
-    trailerLink: String
-    localRating: Float
-    tmdbRating: Float
-    metascore: Int
-    compositeScore: Float
-    showtimes: [Showtimes]
-  }
-
-  type Query {
-    movies: [Movie]
-  }
-`
-
-const resolvers = {
-  LocalDate,
-  LocalTime,
-  Query: {
-    movies: async () => {
-      const movies = await getMovies()
-      return movies
-    },
-  },
-}
+getMovies() // prime the cache
 
 const server = new ApolloServer({ typeDefs, resolvers })
 
