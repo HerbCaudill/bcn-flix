@@ -1,5 +1,5 @@
-import request from 'request-promise-cache'
-import PromiseThrottle from 'promise-throttle'
+import request = require('request-promise-cache')
+import PromiseThrottle = require('promise-throttle')
 
 const IMA_BROWSER =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
