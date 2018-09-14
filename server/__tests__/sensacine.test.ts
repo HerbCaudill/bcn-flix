@@ -1,5 +1,6 @@
 jest.mock('request-promise-cache')
 
+import getLocalMovies from '../src/sensacine'
 import * as sensacine from '../src/sensacine'
 import * as cheerio from 'cheerio'
 
@@ -72,7 +73,7 @@ it('scrapes a theater', async () => {
 })
 
 it('scrapes several theaters', async () => {
-  const moviesAndTimes = await sensacine.getMovies(TEST_THEATERS)
+  const moviesAndTimes = await getLocalMovies(TEST_THEATERS)
   expect(moviesAndTimes.map(d => d.localTitle)).toEqual([
     'Cuando los ángeles duermen',
     'Yucatán',
@@ -101,6 +102,6 @@ it('scrapes several theaters', async () => {
 
 it('handles errors', async () => {
   const BAD_THEATER = [{ id: 'X6666', name: 'Not a real theater' }]
-  const moviesAndTimes = await sensacine.getMovies(BAD_THEATER)
+  const moviesAndTimes = await getLocalMovies(BAD_THEATER)
   expect(moviesAndTimes).toEqual([])
 })
