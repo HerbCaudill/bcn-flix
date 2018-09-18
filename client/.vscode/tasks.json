@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build & start",
+      "type": "shell",
+      "command": "yarn",
+      "args": ["start"],
+      "group": "build",
+      "problemMatcher": [
+        "$tsc-watch",
+        {
+          "owner": "powershell",
+          "pattern": [
+            {
+              "regexp": "^([^\\\\s].*)\\\\((\\\\d+,\\\\d+)\\\\):\\\\s*(.*)$",
+              "file": 1,
+              "location": 2,
+              "message": 3
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "Starting the development server",
+            "endsPattern": "You can now view"
+          }
+        }
+      ],
+      "isBackground": true
+    }
+  ]
+}
