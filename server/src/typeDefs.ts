@@ -16,15 +16,13 @@ const typeDefs = gql`
 
   type Movie {
     title: String
-    localTitle: String
+    alternateTitle: String
     poster: String
-    localPoster: String
     description: String
-    localDescription: String
     releaseDate: LocalDate
     language: String
-    productionCountries: [String]
-    spokenLanguages: [String]
+    countries: [String]
+    languages: [String]
     runtime: Int
     genres: [String]
     trailerLink: String

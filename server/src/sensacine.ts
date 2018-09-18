@@ -2,8 +2,8 @@
 
 import * as cheerio from 'cheerio'
 import * as Joda from 'js-joda'
-import { Movie, Theater } from '../@types/bcnflix'
-import scrape from './scrape'
+import { MovieInfo, Theater } from '../@types/bcnflix'
+import scrape from './utils/scrape'
 
 const ALL_THEATERS: Theater[] = [
   { id: 'E0091', name: 'Aribau Multicines' },
@@ -30,9 +30,9 @@ const ALL_THEATERS: Theater[] = [
 // Returns an array of Movie objects with VOSE showtimes for all theaters listed above
 const getLocalMovies = async (
   theaters = ALL_THEATERS
-): Promise<Movie[]> => {
+): Promise<MovieInfo[]> => {
   // We only want one entry for each movie; we use the local title as a key for now
-  const movieLookup: Map<string, Movie> = new Map()
+  const movieLookup: Map<string, MovieInfo> = new Map()
 
   const theaterPages = await scrapeTheaters(theaters)
   for (const { page, theater } of theaterPages) {
@@ -73,8 +73,8 @@ const scrapeTheaters = async (theaters: Theater[]) => {
 }
 
 // Takes the HTML for one movie listing, returns the title + some metadata
-export const parseMovie = ($: CheerioStatic): Movie => {
-  const movie: Movie = {
+export const parseMovie = ($: CheerioStatic): MovieInfo => {
+  const movie: MovieInfo = {
     localTitle: $('span.meta-title a')
       .text()
       .trim(),
@@ -127,7 +127,7 @@ const parseTimes = ($: CheerioStatic): Joda.LocalTime[] => {
 
 // Takes the HTML for one theater, returns an array of movies + showtimes
 const parseTheater = (theaterHtml: string) => {
-  const result: { movie: Movie; times: Joda.LocalTime[] }[] = []
+  const result: { movie: MovieInfo; times: Joda.LocalTime[] }[] = []
   const $ = cheerio.load(theaterHtml)
 
   const $movies = $('div.hred')

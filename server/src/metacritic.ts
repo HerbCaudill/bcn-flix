@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio'
 import { Metascores } from '../@types/bcnflix'
-import scrape from './scrape'
+import scrape from './utils/scrape'
 
 const urls = [
   'http://www.metacritic.com/browse/movies/release-date/theaters/metascore',

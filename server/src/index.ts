@@ -2,7 +2,6 @@ import { ApolloServer } from 'apollo-server'
 import resolvers from './resolvers'
 import typeDefs from './typeDefs'
 import getMovies from './movies'
-import * as path from 'path'
 
 require('dotenv').config()
 

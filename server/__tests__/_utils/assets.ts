@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra'
 import * as path from 'path'
-import { sanitize } from '../../src/sanitize'
+import sanitize from '../../src/utils/sanitize'
 
 export const readModuleFile = (modulePath: string) => {
   const filename = path.join(__dirname, modulePath)

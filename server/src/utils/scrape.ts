@@ -1,11 +1,11 @@
 import fetch from 'node-fetch'
-import sanitize from '../src/utils/sanitize'
+import sanitize from './sanitize'
 import * as path from 'path'
 
 const persistentCache = require('persistent-cache')
 const cache = persistentCache({
   duration: 1000 * 60 * 60 * 12, // 12 hours
-  base: path.join(__dirname, '../.cache'),
+  base: path.join(__dirname, '../../.cache'),
   name: 'scraped',
 })
 

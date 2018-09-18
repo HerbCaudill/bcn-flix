@@ -1,11 +1,11 @@
 // Uses The Movie DB's API to look up the details of a movie.
 // https://developers.themoviedb.org/3
 
-import { Movie } from '../@types/bcnflix'
+import { MovieInfo } from '../@types/bcnflix'
 import * as Joda from 'js-joda'
 import fetch from 'node-fetch'
 import { URL } from 'url'
-import { sanitize } from './sanitize'
+import sanitize from './utils/sanitize'
 import * as path from 'path'
 
 require('dotenv').config()
@@ -43,8 +43,11 @@ const getById = async (id: string): Promise<any> => {
 }
 
 // Looks up a movie on tmdb by title (in any language)
-const tmdbLookup = async (title: string): Promise<Movie | undefined> => {
-  const cachedMovie: Movie = cache.getSync(sanitize(title))
+const enhanceWithTmdbInfo = async (
+  localInfo: MovieInfo
+): Promise<MovieInfo | undefined> => {
+  const title = localInfo.localTitle
+  const cachedMovie: MovieInfo = cache.getSync(sanitize(title))
   if (cachedMovie) {
     console.log(`got movie from file cache: ${title}`)
     return cachedMovie
@@ -66,48 +69,55 @@ const tmdbLookup = async (title: string): Promise<Movie | undefined> => {
   }
 
   if (searchResults.total_results == 0)
-    // no results
-    return undefined
+    // no results - return the movie we were given
+    return localInfo
 
   // Use the first result & hope it's right
   const bestResult = searchResults.results[0]
   const id = bestResult.id
 
   // Look up the details of the movie using that id
-  const _movie: any = await throttle
+  const tmdbInfo: any = await throttle
     .add(getById.bind(this, id))
     .catch((err: Error) => {
       throw err
     })
 
-  if (_movie.status_code) {
+  if (tmdbInfo.status_code) {
     // rate limiting message - throw so we can try again
-    const message = `${title} ${id} getById: ${_movie.status_message}`
+    const message = `${title} ${id} getById: ${tmdbInfo.status_message}`
     console.log(message)
     throw message
   }
 
   const movie = {
-    id: _movie.id,
-    localTitle: _movie.original_title || title,
-    title: _movie.title || _movie.original_title || title,
-    poster: _movie.poster_path
-      ? `https://image.tmdb.org/t/p/w1280${_movie.poster_path}`
+    id: tmdbInfo.id,
+    title: tmdbInfo.title,
+    localTitle: title,
+    originalTitle: tmdbInfo.original_title,
+    poster: tmdbInfo.poster_path
+      ? `https://image.tmdb.org/t/p/w1280${tmdbInfo.poster_path}`
+      : localInfo.poster,
+    description: tmdbInfo.overview || localInfo.description,
+    releaseDate: tmdbInfo.release_date
+      ? Joda.LocalDate.parse(tmdbInfo.release_date)
       : undefined,
-    description: _movie.overview,
-    releaseDate: Joda.LocalDate.parse(_movie.release_date),
-    language: _movie.original_language,
-    productionCountries: _movie.production_countries,
-    spokenLanguages: _movie.spoken_languages,
-    runtime: _movie.runtime,
-    genres: _movie.genres
-      ? _movie.genres.map((d: any) => d.name)
+    language: tmdbInfo.original_language,
+    countries: tmdbInfo.production_countries
+      ? tmdbInfo.production_countries.map((d: any) => d.name)
+      : [],
+    languages: tmdbInfo.spoken_languages
+      ? tmdbInfo.spoken_languages.map((d: any) => d.name)
+      : [],
+    runtime: tmdbInfo.runtime,
+    genres: tmdbInfo.genres
+      ? tmdbInfo.genres.map((d: any) => d.name)
       : undefined,
-    tmdbRating: _movie.vote_average,
+    tmdbRating: tmdbInfo.vote_average,
   }
   console.log(`got from tmdb: ${title}`)
   cache.put(sanitize(title), movie, () => {})
   return movie
 }
 
-export default tmdbLookup
+export default enhanceWithTmdbInfo
