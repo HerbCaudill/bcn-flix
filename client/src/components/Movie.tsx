@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { MovieInfo } from '../../../server/@types/bcnflix'
+import Poster from './Poster'
 
 const ShowMoreText = require('react-show-more-text')
 
@@ -53,9 +54,9 @@ const Movie = ({ info }: { info: MovieInfo }) => {
       </button>
 
       {/* Poster */}
-      <a href={info.trailer_link} className="image">
-        <img src={info.poster || info.localPoster} />
-      </a>
+
+      <Poster info={info} />
+
 
       <div className="content">
         {/* Title */}
