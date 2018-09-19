@@ -74,6 +74,7 @@ const scrapeTheaters = async (theaters: Theater[]) => {
 
 // Takes the HTML for one movie listing, returns the title + some metadata
 export const parseMovie = ($: CheerioStatic): MovieInfo => {
+  const trailerHref = $('a.thumbnail-container').attr('href')
   const movie: MovieInfo = {
     localTitle: $('span.meta-title a')
       .text()
@@ -84,14 +85,12 @@ export const parseMovie = ($: CheerioStatic): MovieInfo => {
     localDescription: $('div.synopsis')
       .text()
       .trim(),
-    trailerLink: `http://www.sensacine.com/${$(
-      'a.thumbnail-container'
-    ).attr('href')}`,
     localRating: +$('div.rating-item:contains("Medios")')
       .find('span.stareval-note')
       .text()
       .trim()
       .replace(',', '.'),
+    trailerLink: trailerHref && `http://www.sensacine.com/${trailerHref}`,
   }
   return movie
 }
