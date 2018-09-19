@@ -54,7 +54,9 @@ const getMovies = async (): Promise<MovieInfo[]> => {
 
     // enhance with metascore
     movie.metascore =
-      metascores[movie.title || movie.originalTitle || movie.localTitle]
+      metascores[movie.title || ''] ||
+      metascores[movie.originalTitle || ''] ||
+      metascores[movie.localTitle]
     // calculate composite score
     movie.compositeScore = getCompositeScore(movie)
     // sort out titles
