@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { MovieInfo } from '../../../server/@types/bcnflix'
 
 const ShowMoreText = require('react-show-more-text')
 
@@ -38,13 +39,13 @@ function intersperse(elements: any[], separator: any): any[] {
 
 const hideMovie = (e: any, id: string) => null
 
-const Movie = ({ info }: any) => {
+const Movie = ({ info }: { info: MovieInfo }) => {
   return (
     <div className="card" key={info.title}>
       {/* Hide button */}
       <button
         className="ui primary button button-hide"
-        onClick={e => hideMovie(e, info.id)}
+        onClick={e => hideMovie(e, info.id || '')}
         style={{ position: 'absolute', zIndex: 1, top: 0 }}
       >
         <i className="eye slash outline icon" />
@@ -65,7 +66,7 @@ const Movie = ({ info }: any) => {
         <div className="meta">
           {intersperse(
             [
-              formatMonthYear(info.releaseDate),
+              formatMonthYear((info.releaseDate || '').toString()),
               info.countries && info.countries.join(', '),
               ISO6391.getName(info.language),
             ],
