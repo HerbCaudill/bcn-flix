@@ -33,7 +33,7 @@ function intersperse(elements: any[], separator: any): any[] {
   const concatenator = (result: any[], element: any, i: number): any[] =>
     result.concat(
       <span key={`separator_${i}`}>{separator}</span>,
-      <span key={`${i}`}>{element}</span>
+      <span key={`${i}`}>{` ${element} `}</span>
     )
   return tail.reduce(concatenator, head)
 }
@@ -57,6 +57,37 @@ const Movie = ({ info }: { info: MovieInfo }) => {
 
       <Poster info={info} />
 
+      <div className="extra content">
+        {/* Scores */}
+        <div className="right floated">
+          {info.tmdbRating ? (
+            <div className={'ui label ' + scoreColor(info.tmdbRating, 10)}>
+              <i className="film icon" />
+              {info.tmdbRating}
+            </div>
+          ) : null}
+          {info.metascore ? (
+            <div className={'ui label ' + scoreColor(info.metascore, 100)}>
+              <i className="thumbs up icon" />
+              {info.metascore}
+            </div>
+          ) : null}
+          {info.localRating ? (
+            <div className={'ui label ' + scoreColor(info.localRating, 5)}>
+              <i className="star icon" />
+              {info.localRating}
+            </div>
+          ) : null}
+        </div>
+
+        {/* Runtime */}
+        {info.runtime && (
+          <div className="left floated" style={{ marginTop: 4 }}>
+            <i className="stopwatch icon" />
+            {info.runtime} min
+          </div>
+        )}
+      </div>
 
       <div className="content">
         {/* Title */}
@@ -71,17 +102,16 @@ const Movie = ({ info }: { info: MovieInfo }) => {
               info.countries && info.countries.join(', '),
               ISO6391.getName(info.language),
             ],
-            <i className="bar">|</i>
+            <i className="bar">{' | '}</i>
           )}
         </div>
 
         {/* Description */}
         <div className="description">
           <p>
-            {info.genres &&
-              info.genres.length && (
-                <strong>{info.genres.join(', ')}</strong>
-              )}
+            {info.genres && info.genres.length > 0 ? (
+              <strong>{info.genres.join(', ')}</strong>
+            ) : null}
           </p>
           <ShowMoreText lines={5}>
             <p>
@@ -107,38 +137,6 @@ const Movie = ({ info }: { info: MovieInfo }) => {
               </div>
             </div>
           ))}
-      </div>
-      <div className="extra content">
-        {/* Scores */}
-        <span className="right floated">
-          {info.metascore && (
-            <div className={'ui label ' + scoreColor(info.tmdbRating, 10)}>
-              <i className="film icon" />
-              {info.tmdbRating}
-            </div>
-          )}
-
-          {info.metascore && (
-            <div className={'ui label ' + scoreColor(info.metascore, 100)}>
-              <i className="thumbs up icon" />
-              {info.metascore}
-            </div>
-          )}
-          {info.localRating && (
-            <div className={'ui label ' + scoreColor(info.localRating, 5)}>
-              <i className="star icon" />
-              {info.localRating}
-            </div>
-          )}
-        </span>
-
-        {/* Runtime */}
-        {info.runtime && (
-          <span>
-            <i className="stopwatch icon" />
-            {info.runtime} min
-          </span>
-        )}
       </div>
     </div>
   )
