@@ -3,9 +3,10 @@ import { MovieInfo } from '../@types/bcnflix'
 import getLocalMovies from '../src/sensacine'
 import getMetascores from './metacritic'
 import shortenCountry from './utils/shortenCountry'
-import enhanceWithTmdbInfo from './tmdb'
+import getTmdbInfo from './tmdb'
 import getCompositeScore from './utils/getCompositeScore'
 import calculateDisplayTitles from './utils/calculateDisplayTitles'
+import * as Joda from 'js-joda'
 
 const persistentCache = require('persistent-cache')
 const cache = persistentCache({
@@ -19,14 +20,41 @@ const getMovies = async (): Promise<MovieInfo[]> => {
     console.log(`cached: movies`)
     return cachedMovies
   }
+  var movies = await getLocalMovies()
+  const metascores = await getMetascores()
 
   const enhance = async (localInfo: MovieInfo): Promise<MovieInfo> => {
     // enhance with tmdb info
-    const tmdbInfo = await enhanceWithTmdbInfo(localInfo)
-    const movie = Object.assign(localInfo, tmdbInfo)
+    const tmdbInfo = await getTmdbInfo(localInfo.localTitle)
+    var movie = Object.assign({}, localInfo)
+    if (tmdbInfo) {
+      movie = Object.assign(movie, {
+        id: tmdbInfo.id,
+        title: tmdbInfo.title,
+        originalTitle: tmdbInfo.original_title,
+        poster:
+          tmdbInfo.poster_path &&
+          `https://image.tmdb.org/t/p/w1280${tmdbInfo.poster_path}`,
+        description: tmdbInfo.overview,
+        releaseDate: tmdbInfo.release_date
+          ? Joda.LocalDate.parse(tmdbInfo.release_date)
+          : undefined,
+        language: tmdbInfo.original_language,
+        countries:
+          tmdbInfo.production_countries &&
+          tmdbInfo.production_countries.map((d: any) => d.name),
+        languages:
+          tmdbInfo.spoken_languages &&
+          tmdbInfo.spoken_languages.map((d: any) => d.name),
+        runtime: tmdbInfo.runtime,
+        genres: tmdbInfo.genres && tmdbInfo.genres.map((d: any) => d.name),
+        tmdbRating: tmdbInfo.vote_average,
+      })
+    }
+
     // enhance with metascore
-    if (movie.title) movie.metascore = metascores[movie.title]
-    else movie.metascore = metascores[movie.localTitle]
+    movie.metascore =
+      metascores[movie.title || movie.originalTitle || movie.localTitle]
     // calculate composite score
     movie.compositeScore = getCompositeScore(movie)
     // sort out titles
@@ -37,9 +65,6 @@ const getMovies = async (): Promise<MovieInfo[]> => {
 
     return movie
   }
-
-  var movies = await getLocalMovies()
-  const metascores = await getMetascores()
 
   movies = await Promise.all(movies.map(enhance))
 

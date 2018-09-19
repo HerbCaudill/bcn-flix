@@ -43,14 +43,27 @@ const getById = async (id: string): Promise<any> => {
 }
 
 // Looks up a movie on tmdb by title (in any language)
-const enhanceWithTmdbInfo = async (
-  localInfo: MovieInfo
-): Promise<MovieInfo | undefined> => {
-  const title = localInfo.localTitle
+const getTmdbInfo = async (title: string): Promise<any> => {
   const cachedMovie: MovieInfo = cache.getSync(sanitize(title))
   if (cachedMovie) {
-    console.log(`got movie from file cache: ${title}`)
+    console.log(`cached: ${title}`)
     return cachedMovie
+  }
+
+  // For titles of the form "Tiempos Violentos (Pulp Fiction)",
+  // we assume that it might be the same title in two languages, and
+  // we search for each of these first:
+  //  - Tiempos Violentos
+  //  - Pulp Fiction
+  // If we get multiple results, we just return the first one.
+  // If we get no results, we proceed to search for the full title.
+  const matches = title.match(/(.+?)\((.+)\)/)
+  if (matches) {
+    const titles = Array.from(matches).slice(1)
+    const searches = titles.map(async title => await getTmdbInfo(title))
+    const results = await Promise.all(searches)
+    const firstGoodResult = results.find(d => d) // Returns first truthy value
+    if (firstGoodResult) return firstGoodResult
   }
 
   // Search using local title to find tmdb id
@@ -68,56 +81,29 @@ const enhanceWithTmdbInfo = async (
     throw message
   }
 
-  if (searchResults.total_results == 0)
-    // no results - return the movie we were given
-    return localInfo
+  if (searchResults.results.length > 0) {
+    // Use the first result & hope it's right
+    const bestResult = searchResults.results[0]
+    const id = bestResult.id
 
-  // Use the first result & hope it's right
-  const bestResult = searchResults.results[0]
-  const id = bestResult.id
+    // Look up the details of the movie using that id
+    const tmdbInfo = await throttle
+      .add(getById.bind(this, id))
+      .catch((err: Error) => {
+        throw err
+      })
 
-  // Look up the details of the movie using that id
-  const tmdbInfo: any = await throttle
-    .add(getById.bind(this, id))
-    .catch((err: Error) => {
-      throw err
-    })
+    if (tmdbInfo.status_code) {
+      // rate limiting message - throw so we can try again
+      const message = `${title} ${id} getById: ${tmdbInfo.status_message}`
+      console.log(message)
+      throw message
+    }
 
-  if (tmdbInfo.status_code) {
-    // rate limiting message - throw so we can try again
-    const message = `${title} ${id} getById: ${tmdbInfo.status_message}`
-    console.log(message)
-    throw message
-  }
-
-  const movie = {
-    id: tmdbInfo.id,
-    title: tmdbInfo.title,
-    localTitle: title,
-    originalTitle: tmdbInfo.original_title,
-    poster: tmdbInfo.poster_path
-      ? `https://image.tmdb.org/t/p/w1280${tmdbInfo.poster_path}`
-      : localInfo.poster,
-    description: tmdbInfo.overview || localInfo.description,
-    releaseDate: tmdbInfo.release_date
-      ? Joda.LocalDate.parse(tmdbInfo.release_date)
-      : undefined,
-    language: tmdbInfo.original_language,
-    countries: tmdbInfo.production_countries
-      ? tmdbInfo.production_countries.map((d: any) => d.name)
-      : [],
-    languages: tmdbInfo.spoken_languages
-      ? tmdbInfo.spoken_languages.map((d: any) => d.name)
-      : [],
-    runtime: tmdbInfo.runtime,
-    genres: tmdbInfo.genres
-      ? tmdbInfo.genres.map((d: any) => d.name)
-      : undefined,
-    tmdbRating: tmdbInfo.vote_average,
-  }
-  console.log(`got from tmdb: ${title}`)
-  cache.put(sanitize(title), movie, () => {})
-  return movie
+    console.log(`got from tmdb: ${title}`)
+    cache.put(sanitize(title), tmdbInfo, () => {})
+    return tmdbInfo
+  } else return undefined
 }
 
-export default enhanceWithTmdbInfo
+export default getTmdbInfo

@@ -18,7 +18,9 @@ const typeDefs = gql`
     title: String
     alternateTitle: String
     poster: String
+    localPoster: String
     description: String
+    localDescription: String
     releaseDate: LocalDate
     language: String
     countries: [String]
