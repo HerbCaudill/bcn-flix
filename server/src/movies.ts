@@ -26,7 +26,7 @@ const getMovies = async (): Promise<MovieInfo[]> => {
   const enhance = async (localInfo: MovieInfo): Promise<MovieInfo> => {
     // enhance with tmdb info
     const tmdbInfo = await getTmdbInfo(localInfo.localTitle)
-    var movie = Object.assign({}, localInfo)
+    var movie: MovieInfo = Object.assign({}, localInfo)
     if (tmdbInfo) {
       movie = Object.assign(movie, {
         id: tmdbInfo.id,
@@ -48,7 +48,7 @@ const getMovies = async (): Promise<MovieInfo[]> => {
           tmdbInfo.spoken_languages.map((d: any) => d.name),
         runtime: tmdbInfo.runtime,
         genres: tmdbInfo.genres && tmdbInfo.genres.map((d: any) => d.name),
-        tmdbRating: tmdbInfo.vote_average,
+        tmdbRating: tmdbInfo.vote_average,  
       })
     }
 

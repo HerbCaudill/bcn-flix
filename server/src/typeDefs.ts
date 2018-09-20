@@ -15,6 +15,7 @@ const typeDefs = gql`
   }
 
   type Movie {
+    id: Int
     title: String
     alternateTitle: String
     poster: String
