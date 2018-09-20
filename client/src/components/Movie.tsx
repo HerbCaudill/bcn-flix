@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { MovieInfo } from '../../../server/@types/bcnflix'
 import Poster from './Poster'
+import HideButton from './HideButton'
 
 const ShowMoreText = require('react-show-more-text')
 
@@ -38,22 +39,10 @@ function intersperse(elements: any[], separator: any): any[] {
   return tail.reduce(concatenator, head)
 }
 
-const hideMovie = (e: any, id: string) => null
-
 const Movie = ({ info }: { info: MovieInfo }) => {
   return (
     <div className="card" key={info.title}>
-      {/* Hide button */}
-      <button
-        className="ui primary button button-hide"
-        onClick={e => hideMovie(e, info.id || '')}
-        style={{ position: 'absolute', zIndex: 1, top: 0 }}
-      >
-        <i className="eye slash outline icon" />
-        Hide
-      </button>
-
-      {/* Poster */}
+      <HideButton id={info.id} />
 
       <Poster info={info} />
 
