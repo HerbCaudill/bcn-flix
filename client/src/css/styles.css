@@ -1,5 +1,8 @@
 body {
-  padding: 2em;
+  padding: 0;
+}
+.cards {
+  padding: 4em 2em;
 }
 .header + h4 {
   margin-top: 2px;
