@@ -39,9 +39,9 @@ function intersperse(elements: any[], separator: any): any[] {
   return tail.reduce(concatenator, head)
 }
 
-const Movie = ({ info }: { info: MovieInfo }) => {
+const Movie = ({ info, styles }: { info: MovieInfo; styles: any }) => {
   return (
-    <div className="card" key={info.title}>
+    <div className="card" key={info.title} style={styles}>
       <HideButton id={info.id} />
 
       <Poster info={info} />

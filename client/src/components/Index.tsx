@@ -4,6 +4,7 @@ import Toolbar from './Toolbar'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { MovieInfo } from '../../../server/@types/bcnflix'
+import { Transition } from 'react-spring'
 
 const MOVIES_QUERY = gql`
   query movies {
@@ -62,18 +63,28 @@ const Index = () => {
         if (!data.movies || data.movies.length == 0)
           return errorMessage({ message: 'No movies found' })
 
-        console.log(data.exclusions)
+        // sort
         data.movies.sort(descendingByCompositeScore)
+
+        // filter
         const filteredMovies = data.movies.filter(
           (d: MovieInfo) => !data.exclusions.includes(d.id)
         )
+
+        // render
         return (
           <div>
             <Toolbar />
             <div className="ui cards">
-              {filteredMovies.map((d: MovieInfo) => (
-                <Movie info={d} key={d.title} />
-              ))}
+              <Transition
+                keys={filteredMovies.map((d: MovieInfo) => d.id)}
+                from={{ opacity: 1 }}
+                leave={{ opacity: 0 }}
+              >
+                {filteredMovies.map((d: MovieInfo) => (styles: any) => (
+                  <Movie info={d} styles={styles} />
+                ))}
+              </Transition>
             </div>
           </div>
         )
