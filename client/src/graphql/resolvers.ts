@@ -1,6 +1,8 @@
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import gql from 'graphql-tag'
 
+type Exclusions = number[]
+
 export const defaults = {
   exclusions: [],
   // timeRange: {
@@ -15,7 +17,7 @@ const getExclusions = (cache: InMemoryCache): number[] => {
       exclusions @client
     }
   `
-  const results: { exclusions: number[] } = cache.readQuery({ query })
+  const results: { exclusions: Exclusions } = cache.readQuery({ query })
   return results.exclusions
 }
 
