@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Fragment } from 'react'
 import { MovieInfo } from '../../../server/@types/bcnflix'
 import Poster from './Poster'
 import HideButton from './HideButton'
@@ -39,57 +40,63 @@ function intersperse(elements: any[], separator: any): any[] {
   return tail.reduce(concatenator, head)
 }
 
-const Movie = ({ info, styles }: { info: MovieInfo; styles: any }) => {
+const Movie = (props: MovieInfo) => {
   return (
-    <div className="card" key={info.title} style={styles}>
-      <HideButton id={info.id} />
+    <Fragment>
+      <HideButton id={props.id} />
 
-      <Poster info={info} />
+      <Poster {...props} />
 
       <div className="extra content">
         {/* Scores */}
         <div className="right floated">
-          {info.tmdbRating ? (
-            <div className={'ui label ' + scoreColor(info.tmdbRating, 10)}>
+          {props.tmdbRating ? (
+            <div
+              className={'ui label ' + scoreColor(props.tmdbRating, 10)}
+            >
               <i className="film icon" />
-              {info.tmdbRating}
+              {props.tmdbRating}
             </div>
           ) : null}
-          {info.metascore ? (
-            <div className={'ui label ' + scoreColor(info.metascore, 100)}>
+          {props.metascore ? (
+            <div
+              className={'ui label ' + scoreColor(props.metascore, 100)}
+            >
               <i className="thumbs up icon" />
-              {info.metascore}
+              {props.metascore}
             </div>
           ) : null}
-          {info.localRating ? (
-            <div className={'ui label ' + scoreColor(info.localRating, 5)}>
+          {props.localRating ? (
+            <div
+              className={'ui label ' + scoreColor(props.localRating, 5)}
+            >
               <i className="star icon" />
-              {info.localRating}
+              {props.localRating}
             </div>
           ) : null}
         </div>
 
         {/* Runtime */}
-        {info.runtime && (
+        {props.runtime && (
           <div className="left floated" style={{ marginTop: 4 }}>
             <i className="stopwatch icon" />
-            {info.runtime} min
+            {props.runtime} min
           </div>
         )}
       </div>
 
       <div className="content">
         {/* Title */}
-        <div className="header">{info.title}</div>
-        {info.alternateTitle && <h4>({info.alternateTitle})</h4>}
+        <div className="header">{props.title}</div>
+        {props.alternateTitle && <h4>({props.alternateTitle})</h4>}
 
         {/* Meta */}
         <div className="meta">
           {intersperse(
             [
-              formatMonthYear((info.releaseDate || '').toString()),
-              info.countries && info.countries.join(', '),
-              ISO6391.getName(info.language),
+              formatMonthYear((props.releaseDate || '').toString()),
+              props.countries && props.countries.join(', '),
+              ISO6391.getName(props.language),
             ],
             <i className="bar">{' | '}</i>
           )}
@@ -98,21 +105,21 @@ const Movie = ({ info, styles }: { info: MovieInfo; styles: any }) => {
         {/* Description */}
         <div className="description">
           <p>
-            {info.genres && info.genres.length > 0 ? (
-              <strong>{info.genres.join(', ')}</strong>
+            {props.genres && props.genres.length > 0 ? (
+              <strong>{props.genres.join(', ')}</strong>
             ) : null}
           </p>
           <ShowMoreText lines={5}>
             <p>
-              {info.language === 'es'
-                ? info.localDescription
-                : info.description}
+              {props.language === 'es'
+                ? props.localDescription
+                : props.description}
             </p>
           </ShowMoreText>
         </div>
         {/* Showtimes */}
-        {info.showtimes &&
-          info.showtimes.map((listing: any) => (
+        {props.showtimes &&
+          props.showtimes.map((listing: any) => (
             <div key={listing.theater.id}>
               <div className="ui divider" />
               <p className="ui sub header">{listing.theater.name}</p>
@@ -127,7 +134,7 @@ const Movie = ({ info, styles }: { info: MovieInfo; styles: any }) => {
             </div>
           ))}
       </div>
-    </div>
+    </Fragment>
   )
 }
 

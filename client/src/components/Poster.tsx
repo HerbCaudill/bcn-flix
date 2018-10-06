@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { MovieInfo } from '../../../server/@types/bcnflix'
 
-const Poster = ({ info }: { info: MovieInfo }) => {
-  const img = <img src={info.poster || info.localPoster} />
-  if (info.trailerLink)
+const Poster = ({ poster, localPoster, trailerLink }: MovieInfo) => {
+  const img = <img src={poster || localPoster} />
+  if (trailerLink)
     return (
-      <a href={info.trailerLink} target="_blank" className="image">
+      <a href={trailerLink} target="_blank" className="image">
         {img}
       </a>
     )

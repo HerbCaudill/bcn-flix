@@ -2,7 +2,7 @@ import * as Joda from 'js-joda'
 
 declare namespace bcnflix {
   type MovieInfo = {
-    id?: string
+    id?: number
 
     localTitle: string // sensacine (often in Spanish)
     title?: string // tmdb title (generally in English)

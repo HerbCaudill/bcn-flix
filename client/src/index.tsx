@@ -1,20 +1,20 @@
-import ApolloClient from 'apollo-boost'
-import * as React from 'react'
-import { ApolloProvider } from 'react-apollo'
-import * as ReactDOM from 'react-dom'
-import Index from './components/Index'
-import './css/styles.css'
-import { defaults, resolvers } from './graphql/resolvers'
-import typeDefs from './graphql/typeDefs'
+import * as React from 'react';
+import {ApolloProvider} from 'react-apollo';
+import * as ReactDOM from 'react-dom';
+import Movies from './components/Movies';
+import './css/styles.css';
+import { setupApollo } from './setupApollo';
 
-const client = new ApolloClient({
-  uri: 'http://localhost:4000',
-  clientState: { defaults, resolvers, typeDefs },
-})
+export const GRAPHQL_SERVER_URL = 'http://localhost:4000'
 
-ReactDOM.render(
-  <ApolloProvider client={client}>
-    <Index />
-  </ApolloProvider>,
-  document.getElementById('main')
-)
+async function start() {
+  const client = await setupApollo()
+  ReactDOM.render(
+    <ApolloProvider client={client}>
+      <Movies />
+    </ApolloProvider>,
+    document.getElementById('main')
+  )
+}
+
+start()

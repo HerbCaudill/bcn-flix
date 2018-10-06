@@ -1,13 +1,11 @@
 import * as React from 'react'
+import ShowAllButton from './ShowAllButton'
 
 const Toolbar = () => {
   return (
     <div className="ui inverted top fixed menu">
       <div className="right menu">
-        <div className="ui right aligned button item">
-          <i className="wrench icon" />
-          Show all
-        </div>
+        <ShowAllButton />
       </div>
     </div>
   )

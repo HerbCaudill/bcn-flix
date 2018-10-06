@@ -3,7 +3,17 @@ import gql from 'graphql-tag'
 
 type Exclusions = number[]
 
-export const defaults = {
+// type TimeRange = {
+//   start?: string
+//   end?: string
+// }
+
+type State = {
+  exclusions: Exclusions
+  // timeRange: TimeRange
+}
+
+export const defaults: State = {
   exclusions: [],
   // timeRange: {
   //   start: '',
@@ -11,14 +21,14 @@ export const defaults = {
   // },
 }
 
-const getExclusions = (cache: InMemoryCache): number[] => {
+const getState = (cache: InMemoryCache): State => {
   const query = gql`
     {
       exclusions @client
+      # timeRange @client
     }
   `
-  const results: { exclusions: Exclusions } = cache.readQuery({ query })
-  return results.exclusions
+  return cache.readQuery({ query })
 }
 
 export const resolvers = {
@@ -28,24 +38,22 @@ export const resolvers = {
       { id }: { id: number },
       { cache }: { cache: InMemoryCache }
     ): number => {
-      const prevState = getExclusions(cache)
+      const prevState = getState(cache).exclusions
       const newState = prevState.concat([id])
       cache.writeData({
         data: { exclusions: newState },
       })
-      console.log('excluded', id, cache)
       return id
     },
-    // resetExclusions: (
-    //   _: null,
-    //   args: null,
-    //   { cache }: { cache: InMemoryCache }
-    // ): number[] => {
-    //   const prevState: number[] = getExclusions(cache)
-    //   const newState: number[] = defaults.exclusions
-    //   cache.writeData({ data: { exclusions: newState } })
-    //   console.log('reset exclusions')
-    //   return prevState
-    // },
+    resetExclusions: (
+      _: null,
+      args: null,
+      { cache }: { cache: InMemoryCache }
+    ): Exclusions => {
+      const prevState: Exclusions = getState(cache).exclusions
+      const newState: Exclusions = defaults.exclusions
+      cache.writeData({ data: { exclusions: newState } })
+      return prevState
+    },
   },
 }
