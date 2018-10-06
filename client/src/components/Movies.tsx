@@ -34,7 +34,7 @@ const Movies = () => {
               <Transition
                 native
                 keys={items.map((d: MovieInfo) => d.id)}
-                enter={{ opacity: 0 }}
+                enter={{ opacity: 1 }}
                 from={{ opacity: 1 }}
                 leave={{ opacity: 0 }}
               >

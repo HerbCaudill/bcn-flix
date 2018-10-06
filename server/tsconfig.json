@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["es6", "esnext.asynciterable"],
     "module": "commonjs",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitThis": false,
     "sourceMap": true,

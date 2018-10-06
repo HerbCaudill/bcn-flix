@@ -1,0 +1,18 @@
+{
+  "name": "bcn-flix",
+  "version": "1.0.0",
+  "description": "VOSE movies in Barcelona",
+  "main": "./server/src/index.ts",
+  "repository": "https://github.com/HerbCaudill/bcn-flix.git",
+  "author": "Herb Caudill <herb@devresults.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start:server": "cd server && run-s start",
+    "start:client": "cd client && run-s build serve",
+    "start": "run-p start:*"
+  },
+  "dependencies": {
+    "npm-run-all": "^4.1.3"
+  }
+}

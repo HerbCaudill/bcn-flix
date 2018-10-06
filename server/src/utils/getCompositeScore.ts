@@ -4,7 +4,7 @@ import { MovieInfo } from 'bcnflix'
 // We might have one or the other or both or neither.
 // This returns a score from 0-100 that averages the two, if we have both.
 function getCompositeScore(movie: MovieInfo) {
-  const scores = []
+  const scores = [] as number[]
   // Put all scores on 0-100 scale
   if (movie.metascore) scores.push(movie.metascore) //          originally on 1-100 scale
   if (movie.localRating) scores.push(movie.localRating * 20) // originally on 1-5 scale
