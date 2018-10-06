@@ -7,6 +7,9 @@
   "author": "Herb Caudill <herb@devresults.com>",
   "license": "UNLICENSED",
   "private": true,
+  "engines": {
+    "node": "10.9.0"
+  },
   "scripts": {
     "start:server": "cd server && run-s start",
     "start:client": "cd client && run-s build serve",
