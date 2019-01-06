@@ -1,12 +1,11 @@
 // Uses The Movie DB's API to look up the details of a movie.
 // https://developers.themoviedb.org/3
+import fetch from 'node-fetch'
+import * as path from 'path'
+import { URL } from 'url'
 
 import { MovieInfo } from '../@types/bcnflix'
-import * as Joda from 'js-joda'
-import fetch from 'node-fetch'
-import { URL } from 'url'
 import sanitize from './utils/sanitize'
-import * as path from 'path'
 
 require('dotenv').config()
 
@@ -57,7 +56,7 @@ const getTmdbInfo = async (title: string): Promise<any> => {
   //  - Pulp Fiction
   // If we get multiple results, we just return the first one.
   // If we get no results, we proceed to search for the full title.
-  const matches = title.match(/(.+?)\((.+)\)/)
+  const matches = title.match(/(.+?)\s\((.+)\)/)
   if (matches) {
     const titles = Array.from(matches).slice(1)
     const searches = titles.map(async title => await getTmdbInfo(title))
@@ -81,7 +80,7 @@ const getTmdbInfo = async (title: string): Promise<any> => {
     throw message
   }
 
-  if (searchResults.results.length > 0) {
+  if (searchResults.results && searchResults.results.length > 0) {
     // Use the first result & hope it's right
     const bestResult = searchResults.results[0]
     const id = bestResult.id

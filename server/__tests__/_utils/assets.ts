@@ -1,16 +1,21 @@
 import * as fs from 'fs-extra'
 import * as path from 'path'
+
 import sanitize from '../../src/utils/sanitize'
 
 export const readModuleFile = (modulePath: string) => {
   const filename = path.join(__dirname, modulePath)
-  return fs.readFileSync(filename, 'utf8')
+  if (fs.existsSync(filename)) {
+    return fs.readFileSync(filename, 'utf8')
+  } else return ''
 }
 
 export const read = {
   asset(path: string): any {
-    var result = readModuleFile(`../_assets/${path}`)
-    if (path.endsWith('json')) result = JSON.parse(result)
+    var result: string | object = readModuleFile(`../_assets/${path}`)
+    if (path.endsWith('json'))
+      if (result.length) result = JSON.parse(result)
+      else result = {}
     return result
   },
 
