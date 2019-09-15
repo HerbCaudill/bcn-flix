@@ -28,7 +28,7 @@ const getState = (cache: InMemoryCache): State => {
       # timeRange @client
     }
   `
-  return cache.readQuery({ query })
+  return cache.readQuery({ query }) || defaults
 }
 
 export const resolvers = {

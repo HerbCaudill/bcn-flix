@@ -2,8 +2,14 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "serve": "serve -s build -p 3000"
+  },
   "dependencies": {
-    "@types/graphql": "14",
     "apollo-cache-inmemory": "1",
     "apollo-cache-persist": "0",
     "apollo-client": "2",
@@ -21,13 +27,6 @@
     "react-spring": "5",
     "serve": "10.0.2"
   },
-  "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
-    "serve": "serve -s build -p 3000"
-  },
   "devDependencies": {
     "@types/jest": "23",
     "@types/node": "10",
@@ -35,5 +34,17 @@
     "@types/react-dom": "16",
     "npm-run-all": "4",
     "typescript": "3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

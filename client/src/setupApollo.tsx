@@ -4,9 +4,9 @@ import ApolloClient from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { withClientState } from 'apollo-link-state'
-import { GRAPHQL_SERVER_URL } from './index'
 import { defaults, resolvers } from './graphql/resolvers'
 import typeDefs from './graphql/typeDefs'
+import { GRAPHQL_SERVER_URL } from './index'
 
 export async function setupApollo() {
   const cache = new InMemoryCache()
@@ -19,7 +19,7 @@ export async function setupApollo() {
 
   await persistCache({
     cache,
-    storage: window.localStorage,
+    storage: window.localStorage as any,
   })
 
   const httpLink = new HttpLink({
@@ -30,6 +30,6 @@ export async function setupApollo() {
     cache,
     link: ApolloLink.from([stateLink, httpLink]),
   })
-  
+
   return client
 }

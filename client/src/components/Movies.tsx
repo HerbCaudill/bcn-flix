@@ -20,7 +20,7 @@ const Movies = () => {
       {({ loading, error, data }) => {
         if (error) return ErrorMessage(error)
         if (loading) return LoadingMessage
-        if (!data.movies || data.movies.length == 0)
+        if (!data.movies || data.movies.length === 0)
           return ErrorMessage({ message: 'No movies found' })
 
         const items = data.movies

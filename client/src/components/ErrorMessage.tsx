@@ -4,7 +4,7 @@ const ErrorMessage = ({ message }: { message: string }) => (
     <div className="header">GraphQL error</div>
     <pre>{message}</pre>
     <p>
-      {message == 'Network error: Failed to fetch' &&
+      {message === 'Network error: Failed to fetch' &&
         'Is the API server running?'}
     </p>
   </div>
