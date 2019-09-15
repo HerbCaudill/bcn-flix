@@ -7,15 +7,12 @@
   "author": "Herb Caudill <herb@devresults.com>",
   "license": "UNLICENSED",
   "private": true,
-  "engines": {
-    "node": "12"
-  },
   "scripts": {
     "start:server": "cd server && run-s start",
     "start:client": "cd client && run-s build serve",
     "start": "run-p start:*"
   },
   "dependencies": {
-    "npm-run-all": "^4.1.3"
+    "npm-run-all": "4"
   }
 }
