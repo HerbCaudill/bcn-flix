@@ -1,13 +1,9 @@
 import fetch from 'node-fetch'
-import sanitize from '../src/utils/sanitize'
-import * as path from 'path'
 
-const persistentCache = require('persistent-cache')
-const cache = persistentCache({
-  duration: 1000 * 60 * 60 * 12, // 12 hours
-  base: path.join(__dirname, '../.cache'),
-  name: 'scraped',
-})
+import sanitize from '../src/utils/sanitize'
+import { getCache } from './cache'
+
+const cache = getCache('scraped')
 
 const PromiseThrottle = require('promise-throttle')
 const throttle = new PromiseThrottle({
